@@ -12,7 +12,7 @@ export default class SceneInit {
         this.renderer = undefined;
     
         // NOTE: Camera params;
-        this.fov = 45;
+        this.fov = 60;
         this.nearPlane = 1;
         this.farPlane = 1000;
         this.canvasId = canvasId;
@@ -35,13 +35,14 @@ export default class SceneInit {
           1,
           1000
         );
-        this.camera.position.z = 48;
+        this.camera.position.z = 40;
+        this.camera.position.x = 40;
+        this.camera.position.y = 40;
     
         // NOTE: Specify a canvas which is already created in the HTML.
         const canvas = document.getElementById(this.canvasId);
         this.renderer = new THREE.WebGLRenderer({
           canvas,
-          // NOTE: Anti-aliasing smooths out the edges.
           antialias: true,
         });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
@@ -58,11 +59,11 @@ export default class SceneInit {
         this.ambientLight.castShadow = true;
         this.scene.add(this.ambientLight);
     
-        // directional light - parallel sun rays
-        this.directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        // this.directionalLight.castShadow = true;
-        this.directionalLight.position.set(0, 32, 64);
-        this.scene.add(this.directionalLight);
+        // spot light which is illuminating the chart directly
+        this.spotLight = new THREE.SpotLight(0xffffff, 1);
+        this.spotLight.castShadow = true;
+        this.spotLight.position.set(0, 64, 32);
+        this.scene.add(this.spotLight);
     
         // if window resizes
         window.addEventListener('resize', () => this.onWindowResize(), false);
