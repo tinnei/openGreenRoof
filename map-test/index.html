@@ -18,8 +18,59 @@ body { margin: 0; padding: 0; }
     const map = new mapboxgl.Map({
     container: 'map', // container ID
     style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci/draft', // style URL
-    center: [51.524,-0.080], // starting position [lng, lat]
-    zoom: 9 // starting zoom
+    center: [-0.103, 51.549], // starting position [lng, lat]
+    zoom: 13 // starting zoom
+    });
+
+    map.on('load', () => {
+        map.addSource('borough', {
+            type: 'vector',
+            // Use any Mapbox-hosted tileset using its tileset id.
+            // Learn more about where to find a tileset id:
+            // https://docs.mapbox.com/help/glossary/tileset-id/
+            url: 'mapbox://tinnei.cl4oqobfo09an28k8at1gxxun-360oy'
+        });
+
+        // The feature-state dependent fill-opacity expression will render the hover effect
+        // when a feature's hover state is set to true.
+        map.addLayer({
+            'id': 'state-fills',
+            'type': 'fill',
+            'source': 'borough',
+            'source-layer': 'London_Borough',
+            'layout': {},
+            'paint': {
+                'fill-color': '#000',
+                'fill-opacity': [
+                    'case',
+                    ['boolean', ['feature-state', 'hover'], false],
+                    1,
+                    0.5
+                ]
+            }
+        });
+
+
+        // map.addSource('boroughs', {
+        //     'type': 'json',
+        //     'data': 'map-test/data/london_boroughs.json'
+        // });
+
+        // map.addLayer({
+        //     'id': 'boroughs-fills',
+        //     'type': 'fill',
+        //     'source': 'boroughs',
+        //     'layout': {},
+        //     'paint': {
+        //         'fill-color': '#000',
+        //         // 'fill-opacity': [
+        //         //     'case',
+        //         //     ['boolean', ['feature-state', 'hover'], false],
+        //         //     1,
+        //         //     0.5
+        //         // ]
+        //     }
+        // });
     });
 </script>
  
