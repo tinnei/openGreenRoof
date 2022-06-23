@@ -9,92 +9,170 @@
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+#features {
+  position: absolute;
+  top: 0;
+  right: 20px;
+  bottom: 0;
+  width: 30%;
+  height: 80%;
+  overflow: auto;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+}
 </style>
 </head>
+
 <body>
-<div id="map"></div>
-<script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
-    const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [-0.103, 51.50],
-        zoom: 8
-    });
-    let hoveredBoroughId = null;
+    <div id="map"></div>
+    <pre id="features"></pre>
 
-    map.on('load', () => {
-        map.addSource('boroughs', {
-            'type': 'vector',
-            'url': 'mapbox://tinnei.cl4oqobfo09an28k8at1gxxun-360oy'
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci',
+            center: [0.2, 51.50],
+            zoom: 9.5
         });
+        let hoveredBoroughId = null;
+        let selectedBoroughId = null;
 
-        map.addLayer({
-            'id': 'boroughs-fills',
-            'type': 'fill',
-            'source': 'boroughs',
-            'source-layer': 'London_Borough',
-            'layout': {},
-            'paint': {
-                'fill-color': '#627BC1',
-                'fill-opacity': [
-                'case',
-                ['boolean', ['feature-state', 'hover'], false],
-                1,
-                0.5
+        map.on("load", () => {
+            map.addSource("boroughs", {
+                type: "vector",
+                url: "mapbox://tinnei.cl4oqobfo09an28k8at1gxxun-360oy"
+            });
+
+            map.addLayer({
+                id: "boroughs-fills",
+                type: "fill",
+                source: "boroughs",
+                "source-layer": "London_Borough",
+                layout: {},
+                paint: {
+                "fill-color": [
+                    "case",
+                    ["boolean", ["feature-state", "selected"], false],
+                    "#00ff00",
+                    "#627BC1"
+                ],
+                "fill-opacity": [
+                    "case",
+                    ["boolean", ["feature-state", "hover"], false],
+                    1,
+                    0.5
                 ]
-            }
-        });
+                }
+            });
 
-        map.addLayer({
-            'id': 'boroughs-borders',
-            'type': 'line',
-            'source': 'boroughs',
-            'source-layer': 'London_Borough',
-            'layout': {},
-            'paint': {
-                'line-color': '#000',
-                'line-width': 2
-            }
-        });
+            map.addLayer({
+                id: "boroughs-borders",
+                type: "line",
+                source: "boroughs",
+                "source-layer": "London_Borough",
+                layout: {},
+                paint: {
+                "line-color": "#000",
+                "line-width": 2
+                }
+            });
 
-        // When the user moves their mouse over the state-fill layer, we'll update the
-        // feature state for the feature under the mouse.
-        map.on('mousemove', 'boroughs-fills', (e) => {
-            if (e.features.length > 0) {
+            // When the user moves their mouse over the state-fill layer, we'll update the
+            // feature state for the feature under the mouse.
+            map.on("mousemove", "boroughs-fills", (e) => {
+                if (e.features.length > 0) {
                 if (hoveredBoroughId !== null) {
                     map.setFeatureState(
-                        { source: 'boroughs', 
-                         sourceLayer: 'London_Borough', 
-                         id: hoveredBoroughId },
-                        { hover: false }
+                    {
+                        source: "boroughs",
+                        sourceLayer: "London_Borough",
+                        id: hoveredBoroughId
+                    },
+                    { hover: false }
                     );
                 }
                 hoveredBoroughId = e.features[0].id;
                 map.setFeatureState(
-                    { source: 'boroughs', 
-                     sourceLayer: 'London_Borough',
-                     id: hoveredBoroughId },
+                    {
+                    source: "boroughs",
+                    sourceLayer: "London_Borough",
+                    id: hoveredBoroughId
+                    },
                     { hover: true }
                 );
-            }
-        });
+                }
+            });
 
-        // When the mouse leaves the state-fill layer, update the feature state of the
-        // previously hovered feature.
-        map.on('mouseleave', 'boroughs-fills', () => {
-            if (hoveredBoroughId !== null) {
+            // When the user moves their mouse over the state-fill layer, we'll update the
+            // feature state for the feature under the mouse.
+            map.on("mousedown", "boroughs-fills", (e) => {
+                if (e.features.length > 0) {
+                if (selectedBoroughId !== null) {
+                    map.setFeatureState(
+                    {
+                        source: "boroughs",
+                        sourceLayer: "London_Borough",
+                        id: selectedBoroughId
+                    },
+                    { selected: false }
+                    );
+                }
+                selectedBoroughId = e.features[0].id;
                 map.setFeatureState(
-                    { source: 'boroughs', 
-                     sourceLayer: 'London_Borough', 
-                     id: hoveredBoroughId },
+                    {
+                    source: "boroughs",
+                    sourceLayer: "London_Borough",
+                    id: selectedBoroughId
+                    },
+                    { selected: true }
+                );
+
+                // Limit the number of properties we're displaying for
+                // legibility and performance
+                const displayProperties = [
+                    "type",
+                    "properties",
+                    "id",
+                    "layer",
+                    "source",
+                    "sourceLayer",
+                    "state"
+                ];
+
+                const displayFeatures = e.features.map((feat) => {
+                    const displayFeat = {};
+                    displayProperties.forEach((prop) => {
+                    displayFeat[prop] = feat[prop];
+                    });
+                    return displayFeat;
+                });
+
+                // Write object as string with an indent of two spaces.
+                document.getElementById("features").innerHTML = JSON.stringify(
+                    displayFeatures,
+                    null,
+                    2
+                );
+                }
+            });
+
+            // When the mouse leaves the state-fill layer, update the feature state of the
+            // previously hovered feature.
+            map.on("mouseleave", "boroughs-fills", () => {
+                if (hoveredBoroughId !== null) {
+                map.setFeatureState(
+                    {
+                    source: "boroughs",
+                    sourceLayer: "London_Borough",
+                    id: hoveredBoroughId
+                    },
                     { hover: false }
                 );
-            }
-            hoveredBoroughId = null;
+                }
+                hoveredBoroughId = null;
+            });
         });
-    });
-</script>
- 
+    </script>
 </body>
 </html>
