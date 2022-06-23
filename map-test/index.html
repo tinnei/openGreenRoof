@@ -16,61 +16,83 @@ body { margin: 0; padding: 0; }
 <script>
 	mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
     const map = new mapboxgl.Map({
-    container: 'map', // container ID
-    style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci/draft', // style URL
-    center: [-0.103, 51.549], // starting position [lng, lat]
-    zoom: 13 // starting zoom
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-0.103, 51.50],
+        zoom: 8
     });
+    let hoveredBoroughId = null;
 
     map.on('load', () => {
-        map.addSource('borough', {
-            type: 'vector',
-            // Use any Mapbox-hosted tileset using its tileset id.
-            // Learn more about where to find a tileset id:
-            // https://docs.mapbox.com/help/glossary/tileset-id/
-            url: 'mapbox://tinnei.cl4oqobfo09an28k8at1gxxun-360oy'
+        map.addSource('boroughs', {
+            'type': 'vector',
+            'url': 'mapbox://tinnei.cl4oqobfo09an28k8at1gxxun-360oy'
         });
 
-        // The feature-state dependent fill-opacity expression will render the hover effect
-        // when a feature's hover state is set to true.
         map.addLayer({
-            'id': 'state-fills',
+            'id': 'boroughs-fills',
             'type': 'fill',
-            'source': 'borough',
+            'source': 'boroughs',
             'source-layer': 'London_Borough',
             'layout': {},
             'paint': {
-                'fill-color': '#000',
+                'fill-color': '#627BC1',
                 'fill-opacity': [
-                    'case',
-                    ['boolean', ['feature-state', 'hover'], false],
-                    1,
-                    0.5
+                'case',
+                ['boolean', ['feature-state', 'hover'], false],
+                1,
+                0.5
                 ]
             }
         });
 
+        map.addLayer({
+            'id': 'boroughs-borders',
+            'type': 'line',
+            'source': 'boroughs',
+            'source-layer': 'London_Borough',
+            'layout': {},
+            'paint': {
+                'line-color': '#000',
+                'line-width': 2
+            }
+        });
 
-        // map.addSource('boroughs', {
-        //     'type': 'json',
-        //     'data': 'map-test/data/london_boroughs.json'
-        // });
+        // When the user moves their mouse over the state-fill layer, we'll update the
+        // feature state for the feature under the mouse.
+        map.on('mousemove', 'boroughs-fills', (e) => {
+            if (e.features.length > 0) {
+                if (hoveredBoroughId !== null) {
+                    map.setFeatureState(
+                        { source: 'boroughs', 
+                         sourceLayer: 'London_Borough', 
+                         id: hoveredStateId },
+                        { hover: false }
+                    );
+                }
+                hoveredBoroughId = e.features[0].id;
+                map.setFeatureState(
+                    { source: 'boroughs', 
+                     sourceLayer: 'London_Borough',
+                     id: hoveredBoroughId },
+                    { hover: true }
+                );
+            }
+        });
 
-        // map.addLayer({
-        //     'id': 'boroughs-fills',
-        //     'type': 'fill',
-        //     'source': 'boroughs',
-        //     'layout': {},
-        //     'paint': {
-        //         'fill-color': '#000',
-        //         // 'fill-opacity': [
-        //         //     'case',
-        //         //     ['boolean', ['feature-state', 'hover'], false],
-        //         //     1,
-        //         //     0.5
-        //         // ]
-        //     }
-        // });
+        // When the mouse leaves the state-fill layer, update the feature state of the
+        // previously hovered feature.
+        map.on('mouseleave', 'boroughs-fills', () => {
+            if (hoveredBoroughId !== null) {
+                map.setFeatureState(
+                    { source: 'boroughs', 
+                     sourceLayer: 'London_Borough', 
+                     id: hoveredBoroughId },
+                    { hover: false }
+                );
+            }
+            hoveredBoroughId = null;
+        });
     });
 </script>
  
