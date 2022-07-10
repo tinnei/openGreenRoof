@@ -1,0 +1,137 @@
+/* TEAER PAGE LAYOUT */
+body {
+    background-color: rgb(219, 253, 248);
+}
+
+.header {
+    position: absolute;
+    left: 40px;
+    font-size: 12px;
+    opacity: .87;
+    height: 120px;
+    display: flex;
+    align-items: center;
+}
+
+.subHeader {
+    position: absolute;
+    right: 40px;
+    font-size: 12px;
+    opacity: .87;
+    height: 120px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: right;
+    justify-content: center;
+}
+
+.introBox {
+    position: absolute;
+    width: 360px;
+    bottom: 40px;
+    right: 40px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    font-size: 12px;
+    opacity: .8;
+}
+
+/* TEXT STYLE */
+
+/* header */
+h2 { 
+    font-size: 40px;
+}
+
+/* subheader */
+h3 {
+    font-size: 24px;
+}
+
+/* normal text */
+h4 {
+    font-size: 15px;
+    line-height: 135%;
+}
+
+/* sub text */
+h5 {
+    font-size: 12px;
+}
+    
+.subText {
+    color: #000000;
+}
+    
+a:hover{
+    color: blueviolet;
+}
+
+/* TABLET */
+@media screen and (max-width: 768px) {
+    .header {
+        position: relative;
+        left: 40px;
+        margin-top: 200px;
+    }
+
+    .subHeader {
+      /* background-color: red; */
+      position: relative;
+      left: 40px;
+      margin-top: 80px;
+    }
+
+    .introBox {
+      margin-top: 24px;
+      border-top: 1px solid rgb(166, 166, 166);
+      position: relative;
+      left: 40px;
+      opacity: .5;
+    }
+    
+    .footer {
+      position: relative;
+      margin-top: 120px;
+    }
+}
+
+/* PHONE */
+@media screen and (max-width: 425px) {
+    .header {
+        margin-top: 0;
+        width: 100%;
+        padding: 0 24px;
+        left: 0;
+    }
+
+    .subHeader {
+        padding: 0 16px;
+        width: 100%;
+        left: 0;
+        margin-top: 100%;
+      }
+  
+      .introBox {
+        border: 0;
+        padding: 0 16px;
+        width: 100%;
+        left: 0;
+        margin-top: 0px;
+      }
+      
+      .footer {
+        margin-top: 16px;
+        left: 24px;
+        font-size: 10px;
+        width: 85%;
+      }
+}
+  

@@ -1,56 +1,55 @@
 import { useEffect } from 'react';
 
-import * as THREE from 'three';
-import { GUI } from 'dat.gui';
+import styles from './styles/intro.module.css';
 
-import SceneInit from './lib/SceneInit';
-
-// import './App.css';
 
 function App() {
-  
-  useEffect(()=> {
-    const thisScene = new SceneInit('moduleCanvas');
-    thisScene.initialize();
-    thisScene.animate();
-
-    const boxGeometry = new THREE.BoxGeometry(16, 16, 16);
-    const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-    const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-    thisScene.scene.add(boxMesh);
-
-    // initialize GUI
-    const gui = new GUI();
-
-    // GUI - customization
-    const geometryFolder = gui.addFolder('Mesh Geometry');
-    geometryFolder.open();
-    const rotationFolder = geometryFolder.addFolder('Rotation');
-    rotationFolder.add(boxMesh.rotation, 'x', 0, Math.PI).name('Rotate X Axis');
-    rotationFolder.add(boxMesh.rotation, 'y', 0, Math.PI).name('Rotate Y Axis');
-    rotationFolder.add(boxMesh.rotation, 'z', 0, Math.PI).name('Rotate Z Axis');
-    const scaleFolder = geometryFolder.addFolder('Scale');
-    scaleFolder.add(boxMesh.scale, 'x', 0, 2).name('Scale X Axis');
-    scaleFolder.add(boxMesh.scale, 'y', 0, 2).name('Scale Y Axis');
-    scaleFolder.add(boxMesh.scale, 'z', 0, 2).name('Scale Z Axis');
-    scaleFolder.open();
-
-    const materialFolder = gui.addFolder('Tray Material');
-    const materialParams = {
-      boxMeshColor: boxMesh.material.color.getHex(),
-    };
-    materialFolder.add(boxMesh.material, 'wireframe');
-    materialFolder.addColor(materialParams, 'boxMeshColor').onChange((value) => boxMesh.material.color.set(value));
-
-    // Destroy the GUI on reload to prevent multiple stale UI from being displayed on screen.
-    return () => {
-      gui.destroy();
-    };
-  }, []);
 
   return (
     <div>
-      <canvas id="moduleCanvas"/>
+      <div className={styles.header}>
+        <strong><h2>openGreenRoof</h2></strong>
+      </div>
+
+      <div className={styles.subHeader}>
+      <strong><h4>Let's bring more green roofs to cities, together</h4></strong>
+        <h4>Coming August 2022</h4>
+      </div>
+
+      <div className={styles.introBox}>
+        <br></br>
+        <span className={styles.subText}>
+          <h5><strong>So why do we need more green roofs?</strong><br/>
+              For starter, <a href="https://www.youtube.com/watch?v=FlJoBhLnqko" target="_blank">this video by NPR's Beck Harlan and Kara Frame</a> did a great job explaining why green roofs are great for cities.
+              <br/>
+              <br/>
+
+              <strong>TLDR, here's a short list of benefits:</strong>
+              <br/>
+              - reduce heat island effect <br/>
+              - improve indoor climate <br/>
+              - ease surface runoff <br/>
+              - bring back bio-diversity <br/>
+              - more accessible nature <br/>
+
+              <br/>
+              <strong>How do we build more green roofs?</strong>
+              <br/>
+              Thanks to wider awareness, there are already many existing companies dedicated to help builders
+              transform unused roof spaces to green roofs. OpenGreenRoof as a public tool aims to take the 
+              effort further, by providing visibility and optimization to help identify more usable spaces, 
+              clear metrics in environmental benefit, and actionable next steps for anyone who want to participate in this movement.
+
+          </h5>
+        </span>
+      </div>
+
+      <div className={styles.footer}>
+        <strong>V1 Location:</strong> London | <strong> Supporting </strong>
+        <a href="https://www.london.gov.uk/sites/default/files/the_london_plan_2021.pdf" target="_blank">
+          London Plan 2021 - Policy G5
+        </a>
+      </div>
     </div>
   );
 }
