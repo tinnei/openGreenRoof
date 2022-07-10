@@ -107,7 +107,7 @@ a:hover{
 @media screen and (max-width: 425px) {
     .header {
         margin-top: 0;
-        width: 100%;
+        width: 110%;
         padding: 0 24px;
         left: 0;
     }
@@ -124,7 +124,7 @@ a:hover{
         padding: 0 16px;
         width: 100%;
         left: 0;
-        margin-top: 40px;
+        margin-top: 120px;
       }
       
       .footer {
