@@ -47,23 +47,23 @@ body {
 
 /* header */
 h2 { 
-    font-size: 40px;
+    font-size: 40px !important;
 }
 
 /* subheader */
 h3 {
-    font-size: 24px;
+    font-size: 24px !important;
 }
 
 /* normal text */
 h4 {
-    font-size: 15px;
+    font-size: 15px !important;
     line-height: 135%;
 }
 
 /* sub text */
 h5 {
-    font-size: 12px;
+    font-size: 12px !important;
 }
     
 .subText {
@@ -130,7 +130,7 @@ a:hover{
       .footer {
         margin-top: 16px;
         left: 24px;
-        font-size: 10px;
+        font-size: 10px !important;
         width: 85%;
       }
 }
