@@ -1,6 +1,7 @@
 /* TEAER PAGE LAYOUT */
 body {
     background-color: rgb(219, 253, 248);
+    color: rgb(7, 88, 77);
 }
 
 .header {
@@ -67,11 +68,11 @@ h5 {
 }
     
 .subText {
-    color: #000000;
+    color: rgb(0, 148, 128);
 }
     
 a:hover{
-    color: blueviolet;
+    color: rgb(218, 33, 144);
 }
 
 /* TABLET */
@@ -83,7 +84,6 @@ a:hover{
     }
 
     .subHeader {
-      /* background-color: red; */
       position: relative;
       left: 40px;
       margin-top: 80px;
@@ -94,7 +94,7 @@ a:hover{
       border-top: 1px solid rgb(166, 166, 166);
       position: relative;
       left: 40px;
-      opacity: .5;
+      /* opacity: .66; */
     }
     
     .footer {
@@ -129,7 +129,7 @@ a:hover{
       
       .footer {
         margin-top: 16px;
-        left: 24px;
+        left: 16px;
         font-size: 10px !important;
         width: 85%;
       }
