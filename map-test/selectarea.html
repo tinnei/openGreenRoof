@@ -81,6 +81,8 @@ body { margin: 0; padding: 0; }
                     "case",
                     ["boolean", ["feature-state", "hover"], false],
                     1,
+                    ["boolean", ["feature-state", "selected"], false],
+                    0,
                     0.5
                 ]
                 }
@@ -191,15 +193,15 @@ body { margin: 0; padding: 0; }
             // When the mouse leaves the state-fill layer, update the feature state of the
             // previously hovered feature.
             map.on("mouseleave", "boroughs-fills", () => {
-                if (hoveredBoroughId !== null) {
-                map.setFeatureState(
-                    {
-                    source: "boroughs",
-                    sourceLayer: "London_Borough",
-                    id: hoveredBoroughId
-                    },
-                    { hover: false }
-                );
+                if (hoveredBoroughId !== null && selectedBoroughBbox == null) {
+                    map.setFeatureState(
+                        {
+                        source: "boroughs",
+                        sourceLayer: "London_Borough",
+                        id: hoveredBoroughId
+                        },
+                        { hover: false }
+                    );
                 }
                 hoveredBoroughId = null;
             });

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Display a map on a webpage</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js"></script>
+<script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%;}
+#features {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    bottom: 0;
+    width: 30%;
+    height: 80%;
+    overflow: auto;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 8px;
+}
+</style>
+</head>
+
+<body>
+    <button id="fit">Select Building</button>
+    <div id="map"></div>
+    <pre id="features"></pre>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci',
+            center: [-0.2, 51.50],
+            zoom: 16,
+            attribution:
+                '© Data <a href="https://openstreetmap.org/copyright/">OpenStreetMap</a> © Map <a href="https://mapbox.com/">Mapbox</a> © 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>'
+        });
+
+        let selectedBuildingID = null;
+
+        map.on("load", () => {
+        map.addLayer({
+            id: "boroughs-fills",
+            type: "fill",
+            source: "composite",
+            "source-layer": "building",
+            layout: {},
+            paint: {
+            "fill-color": [
+                "case",
+                ["boolean", ["feature-state", "selected"], false],
+                "#00ff00",
+                "#627BC1"
+            ]
+            }
+        });
+
+        // For selecting building
+        map.on("mousedown", (e) => {
+            // Select properties to display
+            const features = map.queryRenderedFeatures(e.point);
+            const displayProperties = [
+            "type",
+            "properties",
+            "id",
+            "layer",
+            "source",
+            "sourceLayer",
+            "state"
+            ];
+            const displayFeatures = features.map((feat) => {
+            const displayFeat = {};
+            displayProperties.forEach((prop) => {
+                displayFeat[prop] = feat[prop];
+            });
+            return displayFeat;
+            });
+
+            // Write object as string with an indent of two spaces.
+            document.getElementById("features").innerHTML = JSON.stringify(
+            displayFeatures,
+            null,
+            2
+            );
+
+            // Set feature state
+            thisID = features[0]["id"];
+            if (thisID !== null) {
+            console.log("last selected ID", selectedBuildingID);
+            console.log("this selected ID", thisID);
+
+            if (selectedBuildingID !== null) {
+                map.setFeatureState(
+                {
+                    source: "composite",
+                    sourceLayer: "building",
+                    id: selectedBuildingID
+                },
+                { selected: false }
+                );
+            }
+            selectedBuildingID = thisID;
+            map.setFeatureState(
+                {
+                source: "composite",
+                sourceLayer: "building",
+                id: selectedBuildingID
+                },
+                { selected: true }
+            );
+
+            selectedBuildingHeight = features[0]["properties"]["height"];
+            console.log("selected height", selectedBuildingHeight);
+            console.log("selected state", features[0]["state"]);
+            } else {
+            console.log("there's no id");
+            }
+        });
+        });
+    </script>
+</body>
+</html>
