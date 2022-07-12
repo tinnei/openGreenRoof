@@ -107,7 +107,7 @@ a:hover{
 @media screen and (max-width: 425px) {
     .header {
         margin-top: 0;
-        width: 110%;
+        width: 100%;
         padding: 0 24px;
         left: 0;
     }
@@ -116,7 +116,7 @@ a:hover{
         padding: 0 16px;
         width: 100%;
         left: 0;
-        margin-top: 105%;
+        margin-top: 72vh;
       }
   
       .introBox {
@@ -124,7 +124,7 @@ a:hover{
         padding: 0 16px;
         width: 100%;
         left: 0;
-        margin-top: 160px;
+        margin-top: 38vh;
       }
       
       .footer {
