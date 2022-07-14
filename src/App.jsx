@@ -47,7 +47,7 @@ function App() {
         <a href="https://www.london.gov.uk/sites/default/files/the_london_plan_2021.pdf" target="_blank">
           London Plan 2021 - Policy G5
         </a><br/>
-        A project by <a href="http://hellowelcomeback.online/" target="_blank">Tinnei</a>. Advisor: UCL Bartlett Architectural Computation.
+        Project by <a href="http://hellowelcomeback.online/" target="_blank">Tinnei</a>. Advisor: UCL Bartlett Architectural Computation.
       </div>
     </div>
   );
