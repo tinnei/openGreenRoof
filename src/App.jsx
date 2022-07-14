@@ -11,7 +11,7 @@ function App() {
 
       <div className={styles.subHeader}>
         <strong><h4>Let's bring more green roofs to cities, together</h4></strong>
-        <h4>Coming August 2022</h4>
+        <h4>Coming September 2022</h4>
       </div>
 
       <div className={styles.introBox}>
