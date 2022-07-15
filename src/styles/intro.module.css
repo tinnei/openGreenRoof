@@ -124,13 +124,13 @@ a:hover {
         padding: 0 16px;
         width: 100%;
         left: 0;
-        margin-top: 30vh;
+        margin-top: 27vh;
     }
 
     .footer {
         margin-top: 16px;
         left: 16px;
         font-size: 10px !important;
-        width: 90%;
+        width: 100%;
     }
 }
