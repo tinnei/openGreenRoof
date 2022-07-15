@@ -35,8 +35,8 @@ function App() {
             <br />
             Thanks to wider awareness, there are already many existing companies dedicated to help builders
             transform unused roof spaces to green roofs. OpenGreenRoof as a public tool aims to take the
-            effort further, by providing visibility and optimization engine to help identify more usable spaces,
-            maximize environmental benefits, and get actionable next steps for anyone whos want to participate in this movement.
+            effort further - by providing visibility and optimization engine to help identify more usable spaces,
+            maximize environmental benefits, and produce actionable next-steps for anyone whos want to participate in the movement.
 
           </h5>
         </span>
