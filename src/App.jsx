@@ -2,9 +2,9 @@ import React from 'react';
 import { useEffect } from 'react';
 import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
 
-import GrassField from './src/page/GrassField.jsx';
-import Teaser from './src/page/Teaser.jsx';
-import Map from './src/page/Map.jsx';
+import GrassField from './GrassField.jsx';
+import Teaser from './Teaser.jsx';
+import Map from './Map.jsx';
 
 function App() {
 
