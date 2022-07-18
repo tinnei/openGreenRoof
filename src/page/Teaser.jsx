@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import styles from 'src/styles/intro.module.css';
+import styles from '../styles/intro.module.css';
 
 function Teaser() {
 
