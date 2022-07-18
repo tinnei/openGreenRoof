@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "dat.gui": "^0.7.9",
-    "mapbox-gl": "^2.9.1",
+    "mapbox-gl": "^2.9.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "^6.3.0",
