@@ -32,3 +32,21 @@
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.8);
 }
+
+.button {
+    display: block;
+    position: absolute;
+    right: 40px;
+    bottom: 40px;
+    width: 400px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #ffffff;
+    background: #000000;
+    z-index: 10;
+    cursor: pointer;
+}

@@ -33,5 +33,6 @@
 
 # tie everything together
 [DONE] add react router
-[] fix build issues
+[] fix build router issues
+https://v5.reactrouter.com/web/guides/quick-start
 [] connect page to page with button

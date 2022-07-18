@@ -2,6 +2,10 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from './styles/map.module.css';
 
+import GrassField from './GrassField';
+
+import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+
 mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
 
 function Map() {
@@ -11,6 +15,7 @@ function Map() {
     const [lat, setLat] = useState(51.5);
     const [zoom, setZoom] = useState(16);
     const [labelLayerId, setLabelLayerId] = useState(null);
+    const [selectedBuildingGeometry, setSelectedBuildingGeometry] = useState(null);
     let selectedBuildingID = null;
 
     useEffect(() => {
@@ -103,7 +108,6 @@ function Map() {
                 "sourceLayer",
                 "state"
             ];
-            console.log(features);
 
             const displayFeatures = features.map((feat) => {
                 const displayFeat = {};
@@ -144,8 +148,12 @@ function Map() {
                     },
                     { selected: true }
                 );
+
                 let selectedBuildingHeight = features[0]["properties"]["height"];
-                console.log("selected height", selectedBuildingHeight);
+                // console.log("selected height", selectedBuildingHeight);
+                let selectedBuildingGeometry = features[0].geometry;
+                setSelectedBuildingGeometry(selectedBuildingGeometry);
+                // console.log("feature geometry:", features[0].geometry);
             } else {
                 console.log("there's no id");
             }
@@ -158,6 +166,7 @@ function Map() {
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
+            <Link to="/grassfield"><button className={styles.button}>Select Building</button></Link>
             <pre id="features" className={styles.infoBox} ></pre>
         </div>
     );

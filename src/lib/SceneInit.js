@@ -12,7 +12,7 @@ export default class SceneInit {
     this.renderer = undefined;
 
     // NOTE: Camera params;
-    this.fov = 60;
+    this.fov = 100;
     this.nearPlane = 1;
     this.farPlane = 1000;
     this.canvasId = canvasId;
