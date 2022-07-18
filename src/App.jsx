@@ -12,15 +12,9 @@ function App() {
     <div className="wrapper">
       <BrowserRouter>
         <Routes>
-          <Route path="/">
-            <Teaser />
-          </Route>
-          <Route path="/grassfield">
-            <GrassField />
-          </Route>
-          <Route path="/map">
-            <Map />
-          </Route>
+          <Route path="/" element={<Teaser />} />
+          <Route path="/grassfield" element={<GrassField />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
       </BrowserRouter>
     </div>

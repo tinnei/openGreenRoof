@@ -1,9 +1,6 @@
 import { useEffect } from 'react';
 import styles from './styles/intro.module.css';
 
-import { Link } from 'react-router-dom';
-
-
 function Teaser() {
 
     return (
@@ -14,8 +11,7 @@ function Teaser() {
 
             <div className={styles.subHeader}>
                 <strong><h4>Let's bring more green roofs to cities, together</h4></strong>
-                <h4><Link to="/map">Coming</Link> September 2022</h4>
-
+                <h4>Coming September 2022</h4>
             </div>
 
             <div className={styles.introBox}>
