@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 import { GUI } from 'dat.gui';
 
-import SceneInit from '@src/lib/SceneInit';
+import SceneInit from '/src/lib/SceneInit';
 
 function BasicGeometry() {
 
