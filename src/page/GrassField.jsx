@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 import { GUI } from 'dat.gui';
 
-import SceneInit from '../lib/SceneInit';
+import SceneInit from '/../lib/SceneInit';
 
 function GrassField() {
 
@@ -29,7 +29,7 @@ function GrassField() {
     var i = 0, maxDiv = 4, thisGrass;
     while (i < maxDiv) {
       thisGrass = grassBase.clone();
-      thisGrass.rotation.y = i*(Math.round(Math.PI)/maxDiv) ;
+      thisGrass.rotation.y = i * (Math.round(Math.PI) / maxDiv);
       thisScene.scene.add(thisGrass);
       i += 1;
     }
@@ -48,7 +48,7 @@ function GrassField() {
   );
 }
 
-export default GrassField; 
+export default GrassField;
 
 
 // -- initial set up -- //
