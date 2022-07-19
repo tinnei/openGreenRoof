@@ -153,7 +153,7 @@ function Map() {
                 // console.log("selected height", selectedBuildingHeight);
                 let selectedBuildingGeometry = features[0].geometry;
                 setSelectedBuildingGeometry(selectedBuildingGeometry);
-                // console.log("feature geometry:", features[0].geometry);
+                console.log("feature geometry:", features[0].geometry);
             } else {
                 console.log("there's no id");
             }
@@ -166,7 +166,7 @@ function Map() {
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <Link to="/grassfield"><button className={styles.button}>Select Building</button></Link>
+            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry }}><button className={styles.button}>Select Building</button></Link>
             <pre id="features" className={styles.infoBox} ></pre>
         </div>
     );

@@ -2,12 +2,16 @@ import { useEffect } from 'react';
 import * as THREE from 'three';
 
 import SceneInit from './lib/SceneInit';
+import { useLocation } from 'react-router-dom'
 
 // TODO: get building geometry from map selectedBuildingGeometry
 
 function GrassField() {
+  const location = useLocation()
+  const { buildingGeometry } = location.state
 
   useEffect(() => {
+    console.log("buildingID from map:", buildingGeometry);
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
@@ -34,7 +38,6 @@ function GrassField() {
     thisScene.scene.add(grassBase);
 
     // GENERATE PATCH OF GRASS
-    // -- reorganized code -- //
     const grassGroup = new THREE.Group();
     var i = 0, maxDiv = 4, thisGrass;
     while (i < maxDiv) {
@@ -52,27 +55,6 @@ function GrassField() {
         thisScene.scene.add(grassGroup.clone().translateZ(x * grassDensity).translateX(y * grassDensity));
       }
     }
-
-    // const boxGeometry = new THREE.BoxGeometry(5, 5, 5);
-    // const boxMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-    // const boxMesh = new THREE.Mesh(boxGeometry, boxMaterial);
-
-    //   const count = 20;
-    //   const instancedGrassMesh = new THREE.InstancedMesh(
-    //     boxGeometry,
-    //     boxMaterial,
-    //     count
-    //   );
-    //   thisScene.scene.add(instancedGrassMesh);
-
-    //   const dummy = new THREE.Object3D();
-    //   for (let i = 0; i < count; i++) {
-    //     for (let j = 0; j < count; j++) {
-    //       dummy.position.set(i, 0, j);
-    //       dummy.updateMatrix();
-    //       instancedGrassMesh.setMatrixAt(i * j + j, dummy.matrix);
-    //     }
-    //   }
 
   }, []);
 
