@@ -2,9 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import styles from './styles/map.module.css';
 
-import GrassField from './GrassField';
-
-import { BrowserRouter, Link, Routes, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
 
@@ -149,11 +147,17 @@ function Map() {
                     { selected: true }
                 );
 
-                let selectedBuildingHeight = features[0]["properties"]["height"];
+                // ---- get building height
+                // let selectedBuildingHeight = features[0]["properties"]["height"];
                 // console.log("selected height", selectedBuildingHeight);
-                let selectedBuildingGeometry = features[0].geometry;
-                setSelectedBuildingGeometry(selectedBuildingGeometry);
-                console.log("feature geometry:", features[0].geometry);
+
+                // ---- get building lnglat arrays
+                let selectedBuildingGeometryArray = features[0].geometry["coordinates"][0];
+                let selectedBuildingGeometryPoints = selectedBuildingGeometryArray.map(lnglat => map.project(lnglat));
+                setSelectedBuildingGeometry(selectedBuildingGeometryPoints);
+                console.log("feature geometry array:", selectedBuildingGeometryArray);
+                console.log("feature geometry points:", selectedBuildingGeometryPoints);
+
             } else {
                 console.log("there's no id");
             }
