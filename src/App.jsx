@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GrassField from './GrassField';
 import Teaser from './Teaser';
 import Map from './Map';
+import Results from './Results';
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Teaser />} />
           <Route path="/grassfield" element={<GrassField />} />
           <Route path="/map" element={<Map />} />
+          <Route path="/results" element={<Results />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -14,11 +14,15 @@ import styles from './styles/roof.module.css';
 // [] make this page only accessible if user selected a building
 
 function GrassField() {
-  const location = useLocation();
-  const { buildingGeometry } = location.state;
+  // const location = useLocation();
+  // const { buildingGeometry } = location.state;
+
+  function disposeArray() {
+    this.array = null;
+  }
 
   useEffect(() => {
-    console.log("building Points, from map:", buildingGeometry);
+    // console.log("building Points, from map:", buildingGeometry);
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
@@ -68,9 +72,9 @@ function GrassField() {
   return (
     <div>
       <canvas id="moduleCanvas" />
-      <pre id="features" className={styles.infoBox} ></pre>
+      <pre id="features" className={styles.infoBox} >Select vegetations</pre>
       <Link to="/map"><button className={styles.leftButton}>Back to select building</button></Link>
-      <Link to="/result"><button className={styles.button}>Confirm selection</button></Link>
+      <Link to="/results"><button className={styles.button}>Confirm selection</button></Link>
     </div>
   );
 }
