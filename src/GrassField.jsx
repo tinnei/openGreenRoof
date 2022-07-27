@@ -11,13 +11,14 @@ import styles from './styles/roof.module.css';
 // [DONE] get building geometry from map selectedBuildingGeometry
 // [DONE] draw plane based on points
 // https://threejs.org/docs/#api/en/core/BufferGeometry
-// [DONE] improve poitns
+// [DONE] improve points
+// https://threejs.org/examples/#webgl_geometry_shapes
 // [] add vegetations with instancedMesh
 // [] make this page only accessible if user selected a building
 
 function GrassField() {
   const location = useLocation();
-  const { buildingGeometry } = location.state;
+  const { buildingGeometry, buildingHeight } = location.state;
 
   function disposeArray() {
     this.array = null;
@@ -32,15 +33,27 @@ function GrassField() {
     thisScene.scene.add(axesHelper);
 
     const grassSize = 24;
-
     const s = 2;
+
+    let group = new THREE.Group();
+    thisScene.scene.add(group);
+
     const roofShape = new THREE.Shape(buildingGeometry);
-    const roofGeometry = new THREE.ShapeGeometry(roofShape);
-    const roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
+    let roofGeometry = new THREE.ShapeGeometry(roofShape);
+    let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
     roofMesh.rotateX(- Math.PI / 2);
     roofMesh.geometry.center();
     roofMesh.scale.set(s, s, s);
-    thisScene.scene.add(roofMesh);
+    group.add(roofMesh);
+
+
+    const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 12, steps: 1, bevelSize: 1, bevelThickness: 1 };
+    roofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
+    roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
+    roofMesh.rotateX(- Math.PI / 2);
+    roofMesh.geometry.center();
+    roofMesh.scale.set(s, s, s);
+    group.add(roofMesh);
 
     // // SET UP GRASS BASE PLANE
     // const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);

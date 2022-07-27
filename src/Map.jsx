@@ -14,6 +14,7 @@ function Map() {
     const [zoom, setZoom] = useState(16);
     const [labelLayerId, setLabelLayerId] = useState(null);
     const [selectedBuildingGeometry, setSelectedBuildingGeometry] = useState(null);
+    const [selectedBuildingHeight, setSelectedBuildingHeight] = useState(null);
     let selectedBuildingID = null;
 
     useEffect(() => {
@@ -148,8 +149,9 @@ function Map() {
                 );
 
                 // ---- get building height
-                // let selectedBuildingHeight = features[0]["properties"]["height"];
-                // console.log("selected height", selectedBuildingHeight);
+                let selectedBuildingHeight = features[0]["properties"]["height"];
+                setSelectedBuildingHeight(selectedBuildingHeight);
+                console.log("selected height", selectedBuildingHeight);
 
                 // ---- get building lnglat arrays
                 let selectedBuildingGeometryArray = features[0].geometry["coordinates"][0];
@@ -170,7 +172,7 @@ function Map() {
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry }}><button className={styles.button}>Select Building</button></Link>
+            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry, buildingHeight: selectedBuildingHeight }}><button className={styles.button}>Select Building</button></Link>
             <pre id="features" className={styles.infoBox} ></pre>
         </div>
     );
