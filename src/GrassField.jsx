@@ -11,6 +11,7 @@ import styles from './styles/roof.module.css';
 // [DONE] get building geometry from map selectedBuildingGeometry
 // [DONE] draw plane based on points
 // https://threejs.org/docs/#api/en/core/BufferGeometry
+// [DONE] improve poitns
 // [] add vegetations with instancedMesh
 // [] make this page only accessible if user selected a building
 
@@ -30,35 +31,16 @@ function GrassField() {
     const axesHelper = new THREE.AxesHelper(20);
     thisScene.scene.add(axesHelper);
 
-    // SET UP GROUND PLANE
-    const groundSize = 100;
     const grassSize = 24;
-    const groundPlane = new THREE.PlaneBufferGeometry(groundSize, groundSize);
-    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0xcccccc });
-    const groundMesh = new THREE.Mesh(groundPlane, groundMaterial);
-    groundMesh.rotateX(- Math.PI / 2);
-    thisScene.scene.add(groundMesh);
 
-    const p1x = buildingGeometry[0]["x"];
-    const p1y = buildingGeometry[0]["y"];
-    console.log("point 1 x:", p1x);
-    console.log("point 1 y:", p1y);
-
-    const geometry = new THREE.BufferGeometry();
-    const verticesArray = [];
-    for (var i = 0; i < buildingGeometry.length; i++) {
-      verticesArray.push(buildingGeometry[i]["x"], buildingGeometry[i]["y"], 0);
-    }
-    console.log("vertice from geo: ", verticesArray);
-    const verticesFromGeo = new Float32Array(verticesArray);
-
-    geometry.setAttribute('position', new THREE.BufferAttribute(verticesFromGeo, 3));
-    const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.rotateX(- Math.PI / 2);
-    mesh.geometry.center(); // key
-    mesh.translateZ(5);
-    thisScene.scene.add(mesh);
+    const s = 2;
+    const roofShape = new THREE.Shape(buildingGeometry);
+    const roofGeometry = new THREE.ShapeGeometry(roofShape);
+    const roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
+    roofMesh.rotateX(- Math.PI / 2);
+    roofMesh.geometry.center();
+    roofMesh.scale.set(s, s, s);
+    thisScene.scene.add(roofMesh);
 
     // // SET UP GRASS BASE PLANE
     // const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
