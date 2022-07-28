@@ -68,7 +68,7 @@ function GrassField() {
     grassBase.translateY(buildingHeight); // move top and bottom
     group.add(grassBase);
 
-    // // GENERATE PATCH OF GRASS
+    // GENERATE ONE PATCH OF GRASS
     const grassGroup = new THREE.Group();
     var i = 0, maxDiv = 4, thisGrass;
     while (i < maxDiv) {
@@ -79,6 +79,13 @@ function GrassField() {
     }
     group.add(grassGroup);
 
+    //// GENERATE INSTANCED OF MANY GRASS
+    // const dummy = new THREE.Object3D();
+    // mesh = new THREE.InstancedMesh( geometry, material, count );
+    // mesh.instanceMatrix.setUsage( THREE.DynamicDrawUsage ); // will be updated every frame
+    // scene.add( mesh );
+
+    //// REGULAR GRID
     // const grassGrid = 4;
     // const grassDensity = grassSize / 2;
     // for (let x = -grassGrid; x < grassGrid; x++) {
@@ -92,7 +99,7 @@ function GrassField() {
   return (
     <div>
       <canvas id="moduleCanvas" />
-      {/* <pre id="features" className={styles.infoBox} >Select vegetations</pre> */}
+      <pre id="features" className={styles.infoBox} >Select vegetations *WIP</pre>
       <Link to="/map"><button className={styles.leftButton}>Back to select building</button></Link>
       <Link to="/results"><button className={styles.button}>Confirm selection</button></Link>
     </div>
