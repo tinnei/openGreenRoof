@@ -14,7 +14,8 @@ import styles from './styles/roof.module.css';
 // [DONE] improve points
 // https://threejs.org/examples/#webgl_geometry_shapes
 // [] add vegetations with instancedMesh
-// [] make this page only accessible if user selected a building
+// [] add vegetation menu
+// [] add ID: make this page only accessible if user selected a building
 
 function GrassField() {
   const location = useLocation();
@@ -25,19 +26,20 @@ function GrassField() {
   }
 
   useEffect(() => {
-    // console.log("building Points, from map:", buildingGeometry);
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
+
     const axesHelper = new THREE.AxesHelper(20);
     thisScene.scene.add(axesHelper);
 
-    const grassSize = 24;
-    const s = 2;
+    const grassSize = 4;
+    const s = 1;
 
     let group = new THREE.Group();
     thisScene.scene.add(group);
 
+    // ADD ROOF
     const roofShape = new THREE.Shape(buildingGeometry);
     let roofGeometry = new THREE.ShapeGeometry(roofShape);
     let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
@@ -45,7 +47,6 @@ function GrassField() {
     roofMesh.geometry.center();
     roofMesh.scale.set(s, s, s);
     group.add(roofMesh);
-
 
     const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 12, steps: 1, bevelSize: 1, bevelThickness: 1 };
     roofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
@@ -55,28 +56,28 @@ function GrassField() {
     roofMesh.scale.set(s, s, s);
     group.add(roofMesh);
 
-    // // SET UP GRASS BASE PLANE
-    // const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
-    // const grassTexture = new THREE.TextureLoader().load("../assets/grass/grass.png");
-    // grassTexture.wrapS = THREE.RepeatWrapping;
-    // grassTexture.wrapT = THREE.RepeatWrapping;
-    // const gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
+    // SET UP GRASS BASE PLANE
+    const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
+    const grassTexture = new THREE.TextureLoader().load("../assets/grass/grass.png");
+    grassTexture.wrapS = THREE.RepeatWrapping;
+    grassTexture.wrapT = THREE.RepeatWrapping;
+    const gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
 
-    // const grassBase = new THREE.Mesh(grassPlane, gtexture);
-    // grassBase.rotation.y = 0;
-    // grassBase.translateY(grassSize / 2); // move down to plane, a bit hacky here
-    // thisScene.scene.add(grassBase);
+    const grassBase = new THREE.Mesh(grassPlane, gtexture);
+    grassBase.geometry.center();
+    grassBase.translateY(buildingHeight); // move top and bottom
+    group.add(grassBase);
 
     // // GENERATE PATCH OF GRASS
-    // const grassGroup = new THREE.Group();
-    // var i = 0, maxDiv = 4, thisGrass;
-    // while (i < maxDiv) {
-    //   thisGrass = grassBase.clone();
-    //   thisGrass.rotation.y = i * (Math.round(Math.PI) / maxDiv);
-    //   grassGroup.add(thisGrass);
-    //   i += 1;
-    // }
-    // thisScene.scene.add(grassGroup);
+    const grassGroup = new THREE.Group();
+    var i = 0, maxDiv = 4, thisGrass;
+    while (i < maxDiv) {
+      thisGrass = grassBase.clone();
+      thisGrass.rotation.y = i * (Math.round(Math.PI) / maxDiv);
+      grassGroup.add(thisGrass);
+      i += 1;
+    }
+    group.add(grassGroup);
 
     // const grassGrid = 4;
     // const grassDensity = grassSize / 2;
