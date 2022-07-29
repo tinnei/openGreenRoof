@@ -58,7 +58,7 @@ function GrassField() {
 
     // SET UP GRASS BASE PLANE
     const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
-    const grassTexture = new THREE.TextureLoader().load("../assets/grass/grass.png");
+    const grassTexture = new THREE.TextureLoader().load("./assets/grass/grass.png");
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
     const gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
@@ -79,20 +79,14 @@ function GrassField() {
     }
     group.add(grassGroup);
 
-    //// GENERATE INSTANCED OF MANY GRASS
-    // const dummy = new THREE.Object3D();
-    // mesh = new THREE.InstancedMesh( geometry, material, count );
-    // mesh.instanceMatrix.setUsage( THREE.DynamicDrawUsage ); // will be updated every frame
-    // scene.add( mesh );
-
     //// REGULAR GRID
-    // const grassGrid = 4;
-    // const grassDensity = grassSize / 2;
-    // for (let x = -grassGrid; x < grassGrid; x++) {
-    //   for (let y = -grassGrid; y < grassGrid; y++) {
-    //     thisScene.scene.add(grassGroup.clone().translateZ(x * grassDensity).translateX(y * grassDensity));
-    //   }
-    // }
+    const grassGrid = 4;
+    const grassDensity = grassSize / 2;
+    for (let x = -grassGrid; x < grassGrid; x++) {
+      for (let y = -grassGrid; y < grassGrid; y++) {
+        group.add(grassGroup.clone().translateZ(x * grassDensity).translateX(y * grassDensity));
+      }
+    }
 
   }, []);
 
