@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import SceneInit from './lib/SceneInit';
 
 import styles from './styles/roof.module.css';
+import textureUrl from '../assets/grass/grass.png';
 
 // TODO: 
 // [DONE] get building geometry from map selectedBuildingGeometry
@@ -58,14 +59,14 @@ function GrassField() {
 
     // SET UP GRASS BASE PLANE
     const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
-    const grassTexture = new THREE.TextureLoader().load("./assets/grass/grass.png");
+    const grassTexture = new THREE.TextureLoader().load(textureUrl);
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
     const gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
 
     const grassBase = new THREE.Mesh(grassPlane, gtexture);
     grassBase.geometry.center();
-    grassBase.translateY(buildingHeight); // move top and bottom
+    grassBase.translateY(buildingHeight / 2 + grassSize); // move top and bottom
     group.add(grassBase);
 
     // GENERATE ONE PATCH OF GRASS
