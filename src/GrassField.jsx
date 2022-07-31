@@ -47,21 +47,23 @@ function GrassField() {
 
     raycaster = new THREE.Raycaster();
 
-    // ADD ROOF GEOMETRY
+    // ADD ROOF GEOMETRY PLANE
     const roofShape = new THREE.Shape(buildingGeometry);
     let roofGeometry = new THREE.ShapeGeometry(roofShape);
     roofGeometry.rotateX(- Math.PI / 2);
     let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
     roofMesh.geometry.center();
     objects.push(roofMesh);
-    group.add(roofMesh);
+    // group.add(roofMesh);
     // console.log("added occlude object -- ", objects);
 
-    const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 12, steps: 1, bevelSize: 1, bevelThickness: 1 };
+    // ADD ROOF VOLUME
+    const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
     roofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
     roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
-    roofMesh.rotateX(- Math.PI / 2);
     roofMesh.geometry.center();
+    roofMesh.translateY(buildingHeight / 2);
+    roofMesh.rotateX(- Math.PI / 2);
     group.add(roofMesh);
 
     // SET UP GRASS BASE PLANE
@@ -89,7 +91,7 @@ function GrassField() {
     const count = Math.pow(amount, 2);
 
     let grassInstancedMesh = new THREE.InstancedMesh(grassPlane, gtexture, count);
-    let grass_i = 0; const offset = (amount - 1) / 2; const stepSize = 5;
+    let grass_i = 0; const stepSize = 5;
     let pointer = new THREE.Vector3();
     const matrix = new THREE.Matrix4();
     const zDirection = new THREE.Vector3(0, -1, 0);
@@ -107,13 +109,14 @@ function GrassField() {
 
         if (intersects.length > 0) {
           // console.log("ADD POINT", grass_i);
-          matrix.setPosition(x * stepSize, 0, z * stepSize);
+          matrix.setPosition(x * stepSize, grassSize / 2, z * stepSize);
           grassInstancedMesh.setMatrixAt(grass_i, matrix);
         }
         grass_i++;
       }
     }
-    grassInstancedMesh.translateY(buildingHeight + grassSize / 2); // move grass to higher
+    grassInstancedMesh.geometry.center();
+    grassInstancedMesh.translateY(buildingHeight); // move grass to higher
     group.add(grassInstancedMesh);
     group.scale.set(s, s, s);
 
