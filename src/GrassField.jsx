@@ -35,7 +35,7 @@ function GrassField() {
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
-    const grassSize = 16;
+    const grassSize = 8;
     const s = 1;
 
     const axesHelper = new THREE.AxesHelper(20);
@@ -54,7 +54,7 @@ function GrassField() {
     let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
     roofMesh.geometry.center();
     objects.push(roofMesh);
-    // group.add(roofMesh);
+    group.add(roofMesh);
     // console.log("added occlude object -- ", objects);
 
     // ADD ROOF VOLUME
@@ -75,23 +75,28 @@ function GrassField() {
     const grassBase = new THREE.Mesh(grassPlane, gtexture);
     grassBase.geometry.center();
 
-    // [TODO] - GENERATE ONE PATCH OF GRASS
+    // [TODO] - GENERATE ONE PATCH OF GRASS with max div
     // const grassGroup = new THREE.Group();
-    // var i = 0, maxDiv = 4, thisGrass;
-    // while (i < maxDiv) {
+    // var grassPlane_i = 0, maxDiv = 4, thisGrass;
+    // while (grassPlane_i < maxDiv) {
     //   thisGrass = grassBase.clone();
-    //   thisGrass.rotation.y = i * (Math.round(Math.PI) / maxDiv);
+    //   thisGrass.rotation.y = grassPlane_i * (Math.round(Math.PI) / maxDiv);
     //   grassGroup.add(thisGrass);
-    //   i += 1;
+    //   grassPlane_i += 1;
     // }
     // group.add(grassGroup);
 
     // GRASS INSTANCED MESH
-    const amount = 20;
+    const amount = 24;
     const count = Math.pow(amount, 2);
 
-    let grassInstancedMesh = new THREE.InstancedMesh(grassPlane, gtexture, count);
-    let grass_i = 0; const stepSize = 5;
+    const grassXPlane = grassPlane;
+    const grassYPlane = new THREE.PlaneGeometry(grassSize, grassSize);
+    grassYPlane.rotateY(Math.PI / 2);
+
+    let grassInstancedMeshX = new THREE.InstancedMesh(grassXPlane, gtexture, count);
+    let grassInstancedMeshY = new THREE.InstancedMesh(grassYPlane, gtexture, count);
+    let grass_i = 0; const stepSize = 2;
     let pointer = new THREE.Vector3();
     const matrix = new THREE.Matrix4();
     const zDirection = new THREE.Vector3(0, -1, 0);
@@ -109,15 +114,20 @@ function GrassField() {
 
         if (intersects.length > 0) {
           // console.log("ADD POINT", grass_i);
+          // TODO: need to add some randomization here, eg: rotation
           matrix.setPosition(x * stepSize, grassSize / 2, z * stepSize);
-          grassInstancedMesh.setMatrixAt(grass_i, matrix);
+          grassInstancedMeshX.setMatrixAt(grass_i, matrix);
+          grassInstancedMeshY.setMatrixAt(grass_i, matrix);
         }
         grass_i++;
       }
     }
-    grassInstancedMesh.geometry.center();
-    grassInstancedMesh.translateY(buildingHeight); // move grass to higher
-    group.add(grassInstancedMesh);
+    grassInstancedMeshX.geometry.center();
+    grassInstancedMeshY.geometry.center();
+    grassInstancedMeshX.translateY(buildingHeight); // move grass to higher
+    grassInstancedMeshY.translateY(buildingHeight); // move grass to higher
+    group.add(grassInstancedMeshX);
+    group.add(grassInstancedMeshY);
     group.scale.set(s, s, s);
 
     //// REGULAR GRID
