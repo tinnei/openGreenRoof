@@ -123,10 +123,10 @@ function Map() {
 
             // Add featureState to selected building
             let thisID = features[0]["id"];
-            console.log("thisID", thisID);
+            // console.log("thisID", thisID);
             if (thisID !== null) {
-                console.log("last selected ID", selectedBuildingID);
-                console.log("this selected ID", thisID);
+                // console.log("last selected building ID", selectedBuildingID);
+                console.log("----- selected building ID:", thisID);
 
                 if (selectedBuildingID !== null) {
                     map.setFeatureState(
@@ -151,14 +151,14 @@ function Map() {
                 // ---- get building height
                 let selectedBuildingHeight = features[0]["properties"]["height"];
                 setSelectedBuildingHeight(selectedBuildingHeight);
-                console.log("selected height", selectedBuildingHeight);
+                console.log("building height", selectedBuildingHeight);
 
                 // ---- get building lnglat arrays
                 let selectedBuildingGeometryArray = features[0].geometry["coordinates"][0];
                 let selectedBuildingGeometryPoints = selectedBuildingGeometryArray.map(lnglat => map.project(lnglat));
                 setSelectedBuildingGeometry(selectedBuildingGeometryPoints);
-                console.log("feature geometry array:", selectedBuildingGeometryArray);
-                console.log("feature geometry points:", selectedBuildingGeometryPoints);
+                // console.log("feature geometry array:", selectedBuildingGeometryArray);
+                console.log("building geometry:", selectedBuildingGeometryPoints);
 
             } else {
                 console.log("there's no id");
