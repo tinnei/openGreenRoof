@@ -6,7 +6,9 @@ import * as THREE from 'three';
 import SceneInit from './lib/SceneInit';
 
 import styles from './styles/roof.module.css';
-import textureUrl from '../assets/grass/grass.png';
+// import textureUrl from '../assets/grass/grass.png';
+
+import customData from '../data/veg.json';
 
 // TODO: 
 // [DONE] get building geometry from map selectedBuildingGeometry
@@ -26,12 +28,18 @@ function GrassField() {
   const { buildingGeometry, buildingHeight } = location.state;
   var objects = [];
   var raycaster = false;
+  var textureUrl = '../assets/grass/grass.png';
+  var gtexture;
 
-  function disposeArray() {
-    this.array = null;
+  function selectVeg(id, e) {
+    e.preventDefault();
+    console.log('You selected veg:' + id + " name:" + customData[id].vegName);
+    textureUrl = "../assets/" + customData[id].imageSrc;
   }
 
   useEffect(() => {
+    console.log("data:", customData);
+    console.log("data:", customData[0].imageSrc);
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
@@ -56,9 +64,8 @@ function GrassField() {
     roofGeometry.rotateX(- Math.PI / 2);
     let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
     roofMesh.geometry.center();
-    objects.push(roofMesh);
+    objects.push(roofMesh); // for occlusion
     group.add(roofMesh);
-    // console.log("added occlude object -- ", objects);
 
     // ADD ROOF VOLUME
     const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
@@ -69,25 +76,22 @@ function GrassField() {
     roofMesh.rotateX(- Math.PI / 2);
     group.add(roofMesh);
 
+
     // SET UP GRASS BASE PLANE
     const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
     const grassTexture = new THREE.TextureLoader().load(textureUrl);
     grassTexture.wrapS = THREE.RepeatWrapping;
     grassTexture.wrapT = THREE.RepeatWrapping;
-    const gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
+    gtexture = new THREE.MeshLambertMaterial({ map: grassTexture, depthWrite: false, transparent: true, color: 0xFF00 });
     const grassBase = new THREE.Mesh(grassPlane, gtexture);
     grassBase.geometry.center();
 
-    // [TODO] - GENERATE ONE PATCH OF GRASS with max div
-    // const grassGroup = new THREE.Group();
-    // var grassPlane_i = 0, maxDiv = 4, thisGrass;
-    // while (grassPlane_i < maxDiv) {
-    //   thisGrass = grassBase.clone();
-    //   thisGrass.rotation.y = grassPlane_i * (Math.round(Math.PI) / maxDiv);
-    //   grassGroup.add(thisGrass);
-    //   grassPlane_i += 1;
-    // }
-    // group.add(grassGroup);
+    // listen for texture change
+    let vbtn = document.getElementById("vegBtn");
+    vbtn.addEventListener("click", e => {
+      e.preventDefault();
+      gtexture.map = new THREE.TextureLoader().load(textureUrl);
+    });
 
     // GRASS INSTANCED MESH
     const grassXPlane = grassPlane;
@@ -129,6 +133,17 @@ function GrassField() {
     group.add(grassInstancedMeshX);
     group.add(grassInstancedMeshY);
     group.scale.set(s, s, s);
+
+    // [TODO] - GENERATE ONE PATCH OF GRASS with max div
+    // const grassGroup = new THREE.Group();
+    // var grassPlane_i = 0, maxDiv = 4, thisGrass;
+    // while (grassPlane_i < maxDiv) {
+    //   thisGrass = grassBase.clone();
+    //   thisGrass.rotation.y = grassPlane_i * (Math.round(Math.PI) / maxDiv);
+    //   grassGroup.add(thisGrass);
+    //   grassPlane_i += 1;
+    // }
+    // group.add(grassGroup);
   }, []);
 
   return (
@@ -136,8 +151,8 @@ function GrassField() {
       <canvas id="moduleCanvas" />
       <pre id="features" className={styles.infoBox} >Select vegetations *WIP
         <div className={styles.vegButtonGroups}>
-          <button className={styles.vegButton}>Flower A</button>
-          <button className={styles.vegButton}>Flower B</button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => selectVeg(0, e)}>Flower A</button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => selectVeg(1, e)}>Flower B</button>
         </div>
         <div className={styles.vegButtonGroups}>
           <button className={styles.vegButton}>Flower C</button>
