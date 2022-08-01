@@ -34,7 +34,8 @@ function GrassField() {
   function selectVeg(id, e) {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
-    textureUrl = new URL("../assets/" + customData[id].imageSrc, import.meta.url).href;
+    var vegImgUrl = '../assets/' + customData[id].imageSrc;
+    textureUrl = new URL(vegImgUrl, import.meta.url).href;
   }
 
   useEffect(() => {
