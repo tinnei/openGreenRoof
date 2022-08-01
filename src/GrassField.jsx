@@ -28,18 +28,17 @@ function GrassField() {
   const { buildingGeometry, buildingHeight } = location.state;
   var objects = [];
   var raycaster = false;
-  var textureUrl = '../assets/grass/grass.png';
+  var textureUrl = './assets/grass/grass.png';
   var gtexture;
 
   function selectVeg(id, e) {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
-    textureUrl = "../assets/" + customData[id].imageSrc;
+    textureUrl = "./assets/" + customData[id].imageSrc;
   }
 
   useEffect(() => {
-    console.log("data:", customData);
-    console.log("data:", customData[0].imageSrc);
+    console.log("data here:", customData);
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
