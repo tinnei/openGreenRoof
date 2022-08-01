@@ -31,12 +31,16 @@ function GrassField() {
   var textureUrl = new URL('../assets/grass/grass.png', import.meta.url).href;
   var gtexture;
 
+  function getImageUrl(name) {
+    return new URL(`../assets/${name}`, import.meta.url).href;
+  }
+
   function selectVeg(id, e) {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
     // var vegImgUrl = '../assets/' + customData[id].imageSrc;
     // console.log("vegImgUrl", vegImgUrl);
-    textureUrl = new URL('../assets/' + customData[id].imageSrc, import.meta.url).href;
+    textureUrl = getImageUrl(customData[id].imageSrc);
   }
 
   useEffect(() => {
