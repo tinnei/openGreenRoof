@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import SceneInit from './lib/SceneInit';
 
 import styles from './styles/roof.module.css';
-// import textureUrl from '../assets/grass/grass.png';
+import textureUrl from '../assets/grass/grass.png';
 
 import customData from '../data/veg.json';
 
@@ -28,13 +28,13 @@ function GrassField() {
   const { buildingGeometry, buildingHeight } = location.state;
   var objects = [];
   var raycaster = false;
-  var textureUrl = './assets/grass/grass.png';
+  // var textureUrl = '../assets/grass/grass.png';
   var gtexture;
 
   function selectVeg(id, e) {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
-    textureUrl = "./assets/" + customData[id].imageSrc;
+    textureUrl = "../assets/" + customData[id].imageSrc;
   }
 
   useEffect(() => {
