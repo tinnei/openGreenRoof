@@ -2,11 +2,11 @@
   {
     "vegID": "001",
     "vegName": "Grass",
-    "imageSrc": "./grass/grass.png"
+    "imageSrc": "grass/grass.png"
   },
   {
     "vegID": "002",
     "vegName": "Yellow Flower",
-    "imageSrc": "./grass/yellowFlower.png"
+    "imageSrc": "grass/yellowFlower.png"
   }
 ]
