@@ -35,6 +35,7 @@ function GrassField() {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
     var vegImgUrl = '../assets/' + customData[id].imageSrc;
+    console.log("vegImgUrl", vegImgUrl);
     textureUrl = new URL(vegImgUrl, import.meta.url).href;
   }
 
