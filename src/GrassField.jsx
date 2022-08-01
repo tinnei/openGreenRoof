@@ -14,9 +14,9 @@ import textureUrl from '../assets/grass/grass.png';
 // https://threejs.org/docs/#api/en/core/BufferGeometry
 // [DONE] improve points
 // https://threejs.org/examples/#webgl_geometry_shapes
-// [] add instanced mesh
+// [DONE] add instanced mesh
 // https://threejs.org/examples/#webgl_instancing_raycast
-// [] check if within bounding box
+// [DONE] check if within bounding box
 // https://jsfiddle.net/f2Lommf5/11557/
 // [] add vegetation menu
 // [] add ID: make this page only accessible if user selected a building
@@ -35,8 +35,11 @@ function GrassField() {
     const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
-    const grassSize = 8;
+    const grassSize = 2;
     const s = 1;
+    const amount = 40;
+    const count = Math.pow(amount, 2);
+    const stepSize = 1;
 
     const axesHelper = new THREE.AxesHelper(20);
     thisScene.scene.add(axesHelper);
@@ -87,16 +90,13 @@ function GrassField() {
     // group.add(grassGroup);
 
     // GRASS INSTANCED MESH
-    const amount = 24;
-    const count = Math.pow(amount, 2);
-
     const grassXPlane = grassPlane;
     const grassYPlane = new THREE.PlaneGeometry(grassSize, grassSize);
     grassYPlane.rotateY(Math.PI / 2);
 
     let grassInstancedMeshX = new THREE.InstancedMesh(grassXPlane, gtexture, count);
     let grassInstancedMeshY = new THREE.InstancedMesh(grassYPlane, gtexture, count);
-    let grass_i = 0; const stepSize = 2;
+    let grass_i = 0;
     let pointer = new THREE.Vector3();
     const matrix = new THREE.Matrix4();
     const zDirection = new THREE.Vector3(0, -1, 0);
@@ -129,21 +129,25 @@ function GrassField() {
     group.add(grassInstancedMeshX);
     group.add(grassInstancedMeshY);
     group.scale.set(s, s, s);
-
-    //// REGULAR GRID
-    // const grassGrid = 4;
-    // const grassDensity = grassSize / 2;
-    // for (let x = -grassGrid; x < grassGrid; x++) {
-    //   for (let y = -grassGrid; y < grassGrid; y++) {
-    //     group.add(grassGroup.clone().translateZ(x * grassDensity).translateX(y * grassDensity));
-    //   }
-    // }
   }, []);
 
   return (
     <div>
       <canvas id="moduleCanvas" />
-      {/* <pre id="features" className={styles.infoBox} >Select vegetations *WIP</pre> */}
+      <pre id="features" className={styles.infoBox} >Select vegetations *WIP
+        <div className={styles.vegButtonGroups}>
+          <button className={styles.vegButton}>Flower A</button>
+          <button className={styles.vegButton}>Flower B</button>
+        </div>
+        <div className={styles.vegButtonGroups}>
+          <button className={styles.vegButton}>Flower C</button>
+          <button className={styles.vegButton}>Flower D</button>
+        </div>
+        <div className={styles.vegButtonGroups}>
+          <button className={styles.vegButton}>Flower E</button>
+          <button className={styles.vegButton}>Flower F</button>
+        </div>
+      </pre>
       <Link to="/map"><button className={styles.leftButton}>Back to select building</button></Link>
       <Link to="/results"><button className={styles.button}>Confirm selection</button></Link>
     </div>

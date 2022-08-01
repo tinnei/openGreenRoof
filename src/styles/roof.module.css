@@ -45,3 +45,23 @@
     z-index: 10;
     cursor: pointer;
 }
+
+.vegButtonGroups {
+    width: 100%;
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vegButton {
+    width: 48%;
+    height: 60px;
+    background: rgb(27, 155, 38);
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.vegButton:hover {
+    background: rgb(87, 220, 129);
+}
