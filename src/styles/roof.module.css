@@ -13,7 +13,6 @@
 .button {
     display: block;
     right: 40px;
-    bottom: 40px;
     width: 400px;
     height: 40px;
     padding: 10px;
@@ -29,6 +28,9 @@
 
 .buttonGroup {
     position: absolute;
+    padding: 0 40px;
+    bottom: 40px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
