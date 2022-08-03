@@ -1,0 +1,35 @@
+.resultSidebar {
+    background-color: white;
+    position: absolute;
+    right: 0;
+    width: 40%;
+    height: 100%;
+}
+
+.resultList {
+    padding: 40px;
+}
+
+.buttonGroup {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+}
+
+.darkButton_Small {
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+    background: #000;
+    z-index: 10;
+    cursor: pointer;
+}

@@ -101,4 +101,8 @@ export default class SceneInit {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
+  resizeCanvas(width, height) {
+    this.renderer.setSize(width, height);
+  }
+
 }

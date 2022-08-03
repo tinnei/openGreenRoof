@@ -12,7 +12,6 @@
 
 .button {
     display: block;
-    position: absolute;
     right: 40px;
     bottom: 40px;
     width: 400px;
@@ -28,22 +27,10 @@
     cursor: pointer;
 }
 
-.leftButton {
-    display: block;
+.buttonGroup {
     position: absolute;
-    left: 40px;
-    bottom: 40px;
-    width: 400px;
-    height: 40px;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 12px;
-    text-align: center;
-    color: #000;
-    background: #fff;
-    z-index: 10;
-    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
 }
 
 .vegButtonGroups {

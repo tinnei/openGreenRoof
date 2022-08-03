@@ -6,48 +6,41 @@ import * as THREE from 'three';
 import SceneInit from './lib/SceneInit';
 
 import styles from './styles/roof.module.css';
-// import textureUrl from '../assets/grass/grass.png';
 
 import customData from '../data/veg.json';
-
-// TODO: 
-// [DONE] get building geometry from map selectedBuildingGeometry
-// [DONE] draw plane based on points
-// https://threejs.org/docs/#api/en/core/BufferGeometry
-// [DONE] improve points
-// https://threejs.org/examples/#webgl_geometry_shapes
-// [DONE] add instanced mesh
-// https://threejs.org/examples/#webgl_instancing_raycast
-// [DONE] check if within bounding box
-// https://jsfiddle.net/f2Lommf5/11557/
-// [] add vegetation menu
-// [] add ID: make this page only accessible if user selected a building
 
 function GrassField() {
   const location = useLocation();
   const { buildingGeometry, buildingHeight } = location.state;
-  var objects = [];
-  var raycaster = false;
-  var textureUrl = new URL('../assets/grass/grass.png', import.meta.url).href;
-  var gtexture;
+
+  const thisScene = new SceneInit('moduleCanvas');
+  var objects = []; var raycaster = false;
+  var gtexture; var textureUrl = new URL('../assets/grass/grass.png', import.meta.url).href;
+
+  // const [selectedVegetations, electedVegetations] = useState(null);
 
   function getImageUrl(name) {
     return new URL(`../assets/${name}`, import.meta.url).href;
   }
 
-  function selectVeg(id, e) {
+  function vegSelected(id, e) {
     e.preventDefault();
     console.log('You selected veg:' + id + " name:" + customData[id].vegName);
-    // var vegImgUrl = '../assets/' + customData[id].imageSrc;
-    // console.log("vegImgUrl", vegImgUrl);
+
     textureUrl = getImageUrl(customData[id].imageSrc);
   }
 
   useEffect(() => {
     console.log("data here:", customData);
-    const thisScene = new SceneInit('moduleCanvas');
     thisScene.initialize();
     thisScene.animate();
+
+    // Added custom angles here
+    // TODO: incorporate this to sceneInit
+    thisScene.scene.translateZ(30);
+    thisScene.camera.translateZ(20);
+    thisScene.camera.translateX(50);
+
     const grassSize = 2;
     const s = 1;
     const amount = 40;
@@ -156,8 +149,8 @@ function GrassField() {
       <canvas id="moduleCanvas" />
       <pre id="features" className={styles.infoBox} >Select vegetations *WIP
         <div className={styles.vegButtonGroups}>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => selectVeg(0, e)}>Flower A</button>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => selectVeg(1, e)}>Flower B</button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>Flower A</button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(1, e)}>Flower B</button>
         </div>
         <div className={styles.vegButtonGroups}>
           <button className={styles.vegButton}>Flower C</button>
@@ -168,8 +161,11 @@ function GrassField() {
           <button className={styles.vegButton}>Flower F</button>
         </div>
       </pre>
-      <Link to="/map"><button className={styles.leftButton}>Back to select building</button></Link>
-      <Link to="/results"><button className={styles.button}>Confirm selection</button></Link>
+      <div className={styles.buttonGroup}>
+        <Link to="/map"><button className={styles.button}>Back to select building</button></Link>
+        <Link to="/results"><button className={styles.button} onClick={(e) => resultSelected(e)}>Confirm selection</button></Link>
+      </div>
+      {/* <Link to="/"><button className={styles.button}>Back to home</button></Link> */}
     </div>
   );
 }
