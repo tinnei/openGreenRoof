@@ -76,6 +76,23 @@ function Map() {
             }, labelLayerId // add back text on top
             ); // close add layer
 
+
+            // map.addLayer(
+            //     {
+            //         'id': 'building-highlighted',
+            //         'type': 'fill',
+            //         'source': 'composite',
+            //         'source-layer': 'building',
+            //         'paint': {
+            //             'fill-outline-color': '#484896',
+            //             'fill-color': '#6e599f',
+            //             'fill-opacity': 0.75
+            //         },
+            //         'filter': ['in', 'FIPS', '']
+            //     },
+            //     'settlement-label'
+            // ); // Place polygon under these labels.
+
             setMap(map);
         });
 
@@ -147,6 +164,23 @@ function Map() {
                     },
                     { selected: true }
                 );
+
+                // Set `bbox` as 5px reactangle area around clicked point.
+                // const bbox = [
+                //     [e.point.x - 50, e.point.y - 50],
+                //     [e.point.x + 50, e.point.y + 50]
+                // ];
+                // // Find features intersecting the bounding box.
+                // const selectedFeatures = map.queryRenderedFeatures(bbox, {
+                //     source: "composite",
+                //     sourceLayer: "building",
+                // });
+                // const fips = selectedFeatures.map(
+                //     (feature) => feature.properties.FIPS
+                // );
+                // // Set a filter matching selected features by FIPS codes
+                // // to activate the 'counties-highlighted' layer.
+                // map.setFilter('building-highlighted', ['in', 'FIPS', ...fips]);
 
                 // ---- get building height
                 let selectedBuildingHeight = features[0]["properties"]["height"];

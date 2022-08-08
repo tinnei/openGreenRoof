@@ -1,7 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './styles/result.module.css';
 
 function Results() {
+    const location = useLocation();
+    const { veg } = location.state;
+
     var objWaterSavings;
     var objEnergySavings;
     var objCarbonSequestered;
@@ -13,6 +16,8 @@ function Results() {
                 <h1><strong>Optimized results here</strong></h1>
                 <br />
                 <h1><i>Loading your results here...</i></h1>
+                <br />
+                <h1>Selected veg options: {veg}</h1>
                 <br />
                 <h1>Water saving: {objWaterSavings}</h1>
                 <h1>Energy saving: {objEnergySavings}</h1>

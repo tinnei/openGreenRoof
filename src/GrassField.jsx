@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
@@ -9,15 +9,23 @@ import styles from './styles/roof.module.css';
 
 import customData from '../data/veg.json';
 
+// TODO - Aug 1 to Aug 15
+// - add context building to scene
+// - add sunlight vectors
+// - raycast sunlight
+// - calculate sum of sunlights per day
+// - show flower list based on sunlight
+// - randomize grass
+
 function GrassField() {
   const location = useLocation();
   const { buildingGeometry, buildingHeight } = location.state;
 
   const thisScene = new SceneInit('moduleCanvas');
   var objects = []; var raycaster = false;
-  var gtexture; var textureUrl = new URL('../assets/grass/grass.png', import.meta.url).href;
+  var gtexture; var textureUrl = new URL('../assets/texture/grass/grass.png', import.meta.url).href;
 
-  // const [selectedVegetations, electedVegetations] = useState(null);
+  const [selectedVeg, setSelectedVeg] = useState(0);
 
   function getImageUrl(name) {
     return new URL(`../assets/${name}`, import.meta.url).href;
@@ -25,7 +33,9 @@ function GrassField() {
 
   function vegSelected(id, e) {
     e.preventDefault();
-    console.log('You selected veg:' + id + " name:" + customData[id].vegName);
+    let selectedVeg = id;
+    setSelectedVeg(selectedVeg);
+    console.log('You selected veg:' + selectedVeg + " name:" + customData[selectedVeg].vegName);
 
     textureUrl = getImageUrl(customData[id].imageSrc);
   }
@@ -37,18 +47,17 @@ function GrassField() {
 
     // Added custom angles here
     // TODO: incorporate this to sceneInit
-    thisScene.scene.translateZ(30);
-    thisScene.camera.translateZ(20);
-    thisScene.camera.translateX(50);
+    thisScene.scene.translateZ(25); // move camera to left
+    thisScene.camera.translateX(100); // move down the camera to eye level with grassroof 
 
     const grassSize = 2;
     const s = 1;
     const amount = 40;
     const count = Math.pow(amount, 2);
-    const stepSize = 1;
+    const stepSize = 0.4;
 
-    const axesHelper = new THREE.AxesHelper(20);
-    thisScene.scene.add(axesHelper);
+    // const axesHelper = new THREE.AxesHelper(20);
+    // thisScene.scene.add(axesHelper);
     var gridHelper = new THREE.GridHelper(100, 10);
     thisScene.scene.add(gridHelper);
     let group = new THREE.Group();
@@ -100,25 +109,51 @@ function GrassField() {
     let grassInstancedMeshY = new THREE.InstancedMesh(grassYPlane, gtexture, count);
     let grass_i = 0;
     let pointer = new THREE.Vector3();
-    const matrix = new THREE.Matrix4();
     const zDirection = new THREE.Vector3(0, -1, 0);
+
+    let rndX; let rndY;
+    let rndRotationX; let rndRotationY;
 
     for (let x = -amount / 2; x < amount / 2; x++) {
       for (let z = -amount / 2; z < amount / 2; z++) {
+
+        // STEP 1: Calculate intersection
         pointer.x = x * stepSize;
         pointer.y = 50;
         pointer.z = z * stepSize;
         raycaster.set(pointer, zDirection);
         // thisScene.scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300, 0xff0000));
-
         var intersects = raycaster.intersectObjects(objects);
         // console.log("intersect at point", grass_i, ":", intersects);
 
+        // STEP 2: Calculate instancedMesh matrix
+        const matrix = new THREE.Matrix4();
+        const position = new THREE.Vector3();
+        const rotation = new THREE.Euler();
+        const quaternion = new THREE.Quaternion();
+        const scale = new THREE.Vector3();
+
+        // TODO: need to add some randomization here, eg: rotation
         if (intersects.length > 0) {
-          // console.log("ADD POINT", grass_i);
-          // TODO: need to add some randomization here, eg: rotation
-          matrix.setPosition(x * stepSize, grassSize / 2, z * stepSize);
+          rndX = Math.random(); rndY = Math.random();
+          position.x = x * stepSize + rndX;
+          position.y = grassSize / 2;
+          position.z = z * stepSize + rndY;
+
+          rndRotationX = Math.random();
+          rotation.y = rndRotationX;
+          quaternion.setFromEuler(rotation);
+          scale.x = scale.y = scale.z = Math.random() * 0.5 + 0.5;
+
+          matrix.compose(position, quaternion, scale);
           grassInstancedMeshX.setMatrixAt(grass_i, matrix);
+
+          rndRotationY = Math.random();
+          rotation.y = rndRotationY;
+          quaternion.setFromEuler(rotation);
+          scale.x = scale.y = scale.z = Math.random() * 1;
+
+          matrix.compose(position, quaternion, scale);
           grassInstancedMeshY.setMatrixAt(grass_i, matrix);
         }
         grass_i++;
@@ -132,41 +167,37 @@ function GrassField() {
     group.add(grassInstancedMeshY);
     group.scale.set(s, s, s);
 
-    // [TODO] - GENERATE ONE PATCH OF GRASS with max div
-    // const grassGroup = new THREE.Group();
-    // var grassPlane_i = 0, maxDiv = 4, thisGrass;
-    // while (grassPlane_i < maxDiv) {
-    //   thisGrass = grassBase.clone();
-    //   thisGrass.rotation.y = grassPlane_i * (Math.round(Math.PI) / maxDiv);
-    //   grassGroup.add(thisGrass);
-    //   grassPlane_i += 1;
-    // }
-    // group.add(grassGroup);
   }, []);
 
   return (
     <div>
       <canvas id="moduleCanvas" />
-      <pre id="features" className={styles.infoBox} >Select vegetations *WIP
+      <pre id="features" className={styles.infoBox} >
+        <h1>Select vegetations *WIP</h1>
         <div className={styles.vegButtonGroups}>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>Flower A</button>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(1, e)}>Flower B</button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
+            <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />
+            <h5>Common Daisy</h5></button>
+          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(1, e)}>
+            <img className={styles.vegButtonImg} src="../assets/menu/flower/armeria_maritama.png" />
+            <h5>Armeria Maritama</h5></button>
         </div>
         <div className={styles.vegButtonGroups}>
-          <button className={styles.vegButton}>Flower C</button>
+          <button className={styles.vegButton}>
+            Flower C</button>
           <button className={styles.vegButton}>Flower D</button>
         </div>
         <div className={styles.vegButtonGroups}>
           <button className={styles.vegButton}>Flower E</button>
           <button className={styles.vegButton}>Flower F</button>
         </div>
-      </pre>
+      </pre >
       <div className={styles.buttonGroup}>
         <Link to="/map"><button className={styles.button}>Back to select building</button></Link>
-        <Link to="/results"><button className={styles.button} onClick={(e) => resultSelected(e)}>Confirm selection</button></Link>
+        <Link to="/results" state={{ veg: selectedVeg }}><button className={styles.button}>Confirm selection</button></Link>
       </div>
       {/* <Link to="/"><button className={styles.button}>Back to home</button></Link> */}
-    </div>
+    </div >
   );
 }
 

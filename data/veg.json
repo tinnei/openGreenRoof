@@ -1,12 +1,16 @@
 [
   {
     "vegID": "001",
-    "vegName": "Grass",
-    "imageSrc": "grass/grass.png"
+    "type": "Flower",
+    "vegName": "Common Daisy",
+    "imageSrc": "menu/flower/common_daisy.png",
+    "textureSrc": "texture/flower/common_daisy.png"
   },
   {
     "vegID": "002",
+    "type": "Flower",
     "vegName": "Yellow Flower",
-    "imageSrc": "grass/yellowFlower.png"
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png"
   }
 ]
