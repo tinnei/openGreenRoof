@@ -4,13 +4,15 @@
     "type": "Flower",
     "vegName": "Common Daisy",
     "imageSrc": "menu/flower/common_daisy.png",
-    "textureSrc": "texture/flower/common_daisy.png"
+    "textureSrc": "texture/flower/common_daisy.png",
+    "soilDepth": 10
   },
   {
     "vegID": "002",
     "type": "Flower",
     "vegName": "Yellow Flower",
     "imageSrc": "menu/flower/yellowFlower.png",
-    "textureSrc": "menu/flower/yellowFlower.png"
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
   }
 ]

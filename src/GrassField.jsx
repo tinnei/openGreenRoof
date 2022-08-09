@@ -15,7 +15,8 @@ import customData from '../data/veg.json';
 // - raycast sunlight
 // - calculate sum of sunlights per day
 // - show flower list based on sunlight
-// - randomize grass
+// - [DONE] randomize grass
+// https://www.reddit.com/r/threejs/comments/scwjwb/im_trying_to_position_instances_of_instancedmesh/
 
 function GrassField() {
   const location = useLocation();
@@ -52,7 +53,7 @@ function GrassField() {
 
     const grassSize = 2;
     const s = 1;
-    const amount = 40;
+    const amount = 100;
     const count = Math.pow(amount, 2);
     const stepSize = 0.4;
 
