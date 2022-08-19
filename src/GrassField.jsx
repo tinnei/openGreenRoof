@@ -20,7 +20,7 @@ import customData from '../data/veg.json';
 
 function GrassField() {
   const location = useLocation();
-  const { buildingGeometry, buildingHeight } = location.state;
+  const { buildingGeometry, buildingHeight, nearbyBuildings } = location.state;
 
   const thisScene = new SceneInit('moduleCanvas');
   var objects = []; var raycaster = false;
@@ -72,7 +72,7 @@ function GrassField() {
     roofGeometry.rotateX(- Math.PI / 2);
     let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
     roofMesh.geometry.center();
-    objects.push(roofMesh); // for occlusion
+    objects.push(roofMesh); // for grass occlusion
     group.add(roofMesh);
 
     // ADD ROOF VOLUME
@@ -84,6 +84,44 @@ function GrassField() {
     roofMesh.rotateX(- Math.PI / 2);
     group.add(roofMesh);
 
+    // --------------------------------
+    // ----- ADD NEARBY BUILDINGS ----- 
+    // --------------------------------
+
+    // ADD NEARBY BUILDINGS
+    // TODO: center this after groupping
+    // Need to merge two shapes
+    let buildingGroup = new THREE.Group();
+
+    console.log("nearbyBuildingData---", nearbyBuildings);
+    nearbyBuildings.forEach((building) => {
+      let buildingHeight = building["height"];
+      let buildingCoors = building["coors"];
+      console.log(buildingHeight);
+      console.log(buildingCoors);
+
+      const roofShape = new THREE.Shape(buildingCoors);
+      const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
+      let nearbyRoofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
+      let nearbyRoofMesh = new THREE.Mesh(nearbyRoofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ffff }));
+      nearbyRoofMesh.rotateX(- Math.PI / 2);
+      buildingGroup.add(nearbyRoofMesh);
+    });
+    buildingGroup.name = "surroundingBuildingsGroup"
+    thisScene.scene.add(buildingGroup);
+
+    const aabb = new THREE.Box3();
+    let bboxcenter = aabb.setFromObject(buildingGroup).getCenter(buildingGroup.position).multiplyScalar(- 1);
+    console.log("bounding box center of group:", bboxcenter);
+    buildingGroup.translateX(0);
+    buildingGroup.translateY(buildingHeight / 2);
+    buildingGroup.translateZ(0);
+    // bboxcenter = aabb.setFromObject(buildingGroup).getCenter(buildingGroup.position);
+    // console.log("updated bounding box of group", bboxcenter);
+
+    // ------------------------
+    // ----- PUT ON GRASS ----- 
+    // ------------------------
 
     // SET UP GRASS BASE PLANE
     const grassPlane = new THREE.PlaneGeometry(grassSize, grassSize);
@@ -134,7 +172,6 @@ function GrassField() {
         const quaternion = new THREE.Quaternion();
         const scale = new THREE.Vector3();
 
-        // TODO: need to add some randomization here, eg: rotation
         if (intersects.length > 0) {
           rndX = Math.random(); rndY = Math.random();
           position.x = x * stepSize + rndX;

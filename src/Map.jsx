@@ -9,23 +9,26 @@ mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd
 function Map() {
     const mapContainer = useRef(null);
     const [map, setMap] = useState(null);
-    const [lng, setLng] = useState(-0.2);
-    const [lat, setLat] = useState(51.5);
+    const [lng, setLng] = useState(-0.0885);
+    const [lat, setLat] = useState(51.5267);
     const [zoom, setZoom] = useState(16);
     const [labelLayerId, setLabelLayerId] = useState(null);
     const [selectedBuildingGeometry, setSelectedBuildingGeometry] = useState(null);
     const [selectedBuildingHeight, setSelectedBuildingHeight] = useState(null);
+    const [nearbyBuildingData, setNearbyBuildingData] = useState(null);
     let selectedBuildingID = null;
 
     useEffect(() => {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
+            // style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci',
+            // style: 'mapbox://styles/mapbox/satellite-v9', 
             center: [lng, lat],
             zoom: zoom,
             attribution:
                 '© Data <a href="https://openstreetmap.org/copyright/">OpenStreetMap</a> © Map <a href="https://mapbox.com/">Mapbox</a> © 3D <a href="https://osmbuildings.org/copyright/">OSM Buildings</a>',
-            pitch: 40,
+            pitch: 20,
             bearing: 20,
             antialias: true
         });
@@ -76,22 +79,6 @@ function Map() {
             }, labelLayerId // add back text on top
             ); // close add layer
 
-
-            // map.addLayer(
-            //     {
-            //         'id': 'building-highlighted',
-            //         'type': 'fill',
-            //         'source': 'composite',
-            //         'source-layer': 'building',
-            //         'paint': {
-            //             'fill-outline-color': '#484896',
-            //             'fill-color': '#6e599f',
-            //             'fill-opacity': 0.75
-            //         },
-            //         'filter': ['in', 'FIPS', '']
-            //     },
-            //     'settlement-label'
-            // ); // Place polygon under these labels.
 
             setMap(map);
         });
@@ -165,34 +152,36 @@ function Map() {
                     { selected: true }
                 );
 
-                // Set `bbox` as 5px reactangle area around clicked point.
-                // const bbox = [
-                //     [e.point.x - 50, e.point.y - 50],
-                //     [e.point.x + 50, e.point.y + 50]
-                // ];
-                // // Find features intersecting the bounding box.
-                // const selectedFeatures = map.queryRenderedFeatures(bbox, {
-                //     source: "composite",
-                //     sourceLayer: "building",
-                // });
-                // const fips = selectedFeatures.map(
-                //     (feature) => feature.properties.FIPS
-                // );
-                // // Set a filter matching selected features by FIPS codes
-                // // to activate the 'counties-highlighted' layer.
-                // map.setFilter('building-highlighted', ['in', 'FIPS', ...fips]);
+                // ---- get nearby buildings
+                const bbox = [
+                    [e.point.x - 20, e.point.y - 20],
+                    [e.point.x + 20, e.point.y + 20]
+                ];
+                const selectedFeatures = map.queryRenderedFeatures(bbox, {
+                    layers: ["building"]
+                });
+                let nearbyBuildingData = selectedFeatures.map((feat) => {
+                    const buildingsFeats = {};
+                    buildingsFeats["id"] = feat["id"];
+                    // console.log("neaby feature---", feat);
+                    buildingsFeats["height"] = feat["properties"]["height"];
+                    let buildingArray = feat.geometry["coordinates"][0];
+                    buildingsFeats["coors"] = buildingArray.map(lnglat => map.project(lnglat));
+                    return buildingsFeats;
+                });
+                setNearbyBuildingData(nearbyBuildingData);
+                console.log("[passing state] nearbyBuildingData --", nearbyBuildingData);
 
                 // ---- get building height
                 let selectedBuildingHeight = features[0]["properties"]["height"];
                 setSelectedBuildingHeight(selectedBuildingHeight);
-                console.log("building height", selectedBuildingHeight);
+                console.log("[passing state] building height --", selectedBuildingHeight);
 
                 // ---- get building lnglat arrays
                 let selectedBuildingGeometryArray = features[0].geometry["coordinates"][0];
                 let selectedBuildingGeometryPoints = selectedBuildingGeometryArray.map(lnglat => map.project(lnglat));
                 setSelectedBuildingGeometry(selectedBuildingGeometryPoints);
-                // console.log("feature geometry array:", selectedBuildingGeometryArray);
-                console.log("building geometry:", selectedBuildingGeometryPoints);
+                console.log("passing state] building geometry --", selectedBuildingGeometryPoints);
 
             } else {
                 console.log("there's no id");
@@ -206,7 +195,7 @@ function Map() {
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry, buildingHeight: selectedBuildingHeight }}><button className={styles.button}>Select Building</button></Link>
+            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry, buildingHeight: selectedBuildingHeight, nearbyBuildings: nearbyBuildingData }}><button className={styles.button}>Select Building</button></Link>
             <pre id="features" className={styles.infoBox} ></pre>
         </div>
     );
