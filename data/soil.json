@@ -1,0 +1,16 @@
+[
+    {
+        "soilID": "001",
+        "soilName": "Mineral heavy",
+        "unitWeight": 10,
+        "textureImageSrc": "soil/mineral_heavy.png",
+        "price": 110
+    },
+    {
+        "soilID": "002",
+        "soilName": "Nitrate heavy",
+        "unitWeight": 10,
+        "textureImageSrc": "soil/nitrate_heavy.png",
+        "price": 110
+    }
+]
