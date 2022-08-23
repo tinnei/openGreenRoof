@@ -8,6 +8,7 @@ import SceneInit from './lib/SceneInit';
 import styles from './styles/roof.module.css';
 
 import customData from '../data/veg.json';
+// import sunVectors from '../data/sunvectors_london.csv';
 
 // TODO - Aug 1 to Aug 15
 // - add context building to scene
@@ -43,6 +44,7 @@ function GrassField() {
 
   useEffect(() => {
     console.log("data here:", customData);
+    // console.log("sun vectors here:", sunVectors);
     thisScene.initialize();
     thisScene.animate();
 
@@ -53,7 +55,7 @@ function GrassField() {
 
     const grassSize = 2;
     const s = 1;
-    const amount = 100;
+    const amount = 150;
     const count = Math.pow(amount, 2);
     const stepSize = 0.4;
 
@@ -116,8 +118,6 @@ function GrassField() {
     buildingGroup.translateX(0);
     buildingGroup.translateY(buildingHeight / 2);
     buildingGroup.translateZ(0);
-    // bboxcenter = aabb.setFromObject(buildingGroup).getCenter(buildingGroup.position);
-    // console.log("updated bounding box of group", bboxcenter);
 
     // ------------------------
     // ----- PUT ON GRASS ----- 
@@ -212,22 +212,18 @@ function GrassField() {
       <canvas id="moduleCanvas" />
       <pre id="features" className={styles.infoBox} >
         <h1>Select vegetations *WIP</h1>
+
         <div className={styles.vegButtonGroups}>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
+          {customData.map((veg) =>
+            <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
+              <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />
+              <h5>{veg["vegName"]}</h5></button>)}
+          {/* <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
             <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />
             <h5>Common Daisy</h5></button>
           <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(1, e)}>
             <img className={styles.vegButtonImg} src="../assets/menu/flower/armeria_maritama.png" />
-            <h5>Armeria Maritama</h5></button>
-        </div>
-        <div className={styles.vegButtonGroups}>
-          <button className={styles.vegButton}>
-            Flower C</button>
-          <button className={styles.vegButton}>Flower D</button>
-        </div>
-        <div className={styles.vegButtonGroups}>
-          <button className={styles.vegButton}>Flower E</button>
-          <button className={styles.vegButton}>Flower F</button>
+            <h5>Armeria Maritama</h5></button> */}
         </div>
       </pre >
       <div className={styles.buttonGroup}>
