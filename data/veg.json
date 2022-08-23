@@ -2,15 +2,151 @@
   {
     "vegID": "001",
     "type": "Flower",
-    "vegName": "Common Daisy",
+    "vegName": "Armeria Maritama",
     "imageSrc": "menu/flower/common_daisy.png",
     "textureSrc": "texture/flower/common_daisy.png",
-    "soilDepth": 10
+    "soilDepth": 25
   },
   {
     "vegID": "002",
     "type": "Flower",
-    "vegName": "Yellow Flower",
+    "vegName": "Common Daisy",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 25
+  },
+  {
+    "vegID": "003",
+    "type": "Sedum",
+    "vegName": "Fragia Vesca",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 5
+  },
+  {
+    "vegID": "004",
+    "type": "Sedum",
+    "vegName": "Anthyllis Velneraria",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 60
+  },
+  {
+    "vegID": "005",
+    "type": "Sedum",
+    "vegName": "Poppy",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 25
+  },
+  {
+    "vegID": "006",
+    "type": "Sedum",
+    "vegName": "Heartsease",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 30
+  },
+  {
+    "vegID": "007",
+    "type": "Sedum",
+    "vegName": "Fragia Vesca",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 20
+  },
+  {
+    "vegID": "008",
+    "type": "Sedum",
+    "vegName": "Thymus Polytrichus",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 15
+  },
+  {
+    "vegID": "009",
+    "type": "Sedum",
+    "vegName": "Oreganum Vulgare",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "010",
+    "type": "Sedum",
+    "vegName": "Cathusian",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 20
+  },
+  {
+    "vegID": "011",
+    "type": "Sedum",
+    "vegName": "Prunella Vulgaris",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 20
+  },
+  {
+    "vegID": "012",
+    "type": "Sedum",
+    "vegName": "Lotus Corniculatus",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "013",
+    "type": "Sedum",
+    "vegName": "Silene Uniflora",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "014",
+    "type": "Sedum",
+    "vegName": "Primula Veris",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 25
+  },
+  {
+    "vegID": "015",
+    "type": "Sedum",
+    "vegName": "Sedum Acre",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "016",
+    "type": "Sedum",
+    "vegName": "Sedum Czar's Gold",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "017",
+    "type": "Sedum",
+    "vegName": "Sedum Album",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 10
+  },
+  {
+    "vegID": "018",
+    "type": "Sedum",
+    "vegName": "Sedum Hispanicum",
+    "imageSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yellowFlower.png",
+    "soilDepth": 6
+  },
+  {
+    "vegID": "019",
+    "type": "Sedum",
+    "vegName": "Sedum Pullchellum",
     "imageSrc": "menu/flower/yellowFlower.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 10
