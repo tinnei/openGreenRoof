@@ -16,6 +16,8 @@ import customData from '../data/veg.json';
 // - raycast sunlight
 // - calculate sum of sunlights per day
 // - show flower list based on sunlight
+// - [DONE] use map() to show flower buttons
+// - [] organize flower buttons
 // - [DONE] randomize grass
 // https://www.reddit.com/r/threejs/comments/scwjwb/im_trying_to_position_instances_of_instancedmesh/
 
@@ -25,7 +27,8 @@ function GrassField() {
 
   const thisScene = new SceneInit('moduleCanvas');
   var objects = []; var raycaster = false;
-  var gtexture; var textureUrl = new URL('../assets/texture/grass/grass.png', import.meta.url).href;
+  var gtexture;
+  var textureUrl = new URL('../assets/texture/grass/grass.png', import.meta.url).href;
 
   const [selectedVeg, setSelectedVeg] = useState(0);
 
@@ -216,7 +219,7 @@ function GrassField() {
         <div className={styles.vegButtonGroups}>
           {customData.map((veg) =>
             <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
-              <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />
+              <img className={styles.vegButtonImg} src={"../assets/" + veg.imageSrc} />
               <h5>{veg["vegName"]}</h5></button>)}
           {/* <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
             <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />

@@ -11,31 +11,31 @@
     "vegID": "002",
     "type": "Flower",
     "vegName": "Common Daisy",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_common_daisy.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 25
   },
   {
     "vegID": "003",
-    "type": "Sedum",
+    "type": "Flower",
     "vegName": "Fragia Vesca",
-    "imageSrc": "menu/flower/yellowFlower.png",
-    "textureSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_fragia_vesca.png",
+    "textureSrc": "menu/flower/menu_poppy.png",
     "soilDepth": 5
   },
   {
     "vegID": "004",
-    "type": "Sedum",
+    "type": "Flower",
     "vegName": "Anthyllis Velneraria",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_anthellis_vulneraria.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 60
   },
   {
     "vegID": "005",
-    "type": "Sedum",
+    "type": "Flower",
     "vegName": "Poppy",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_poppy.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 25
   },
