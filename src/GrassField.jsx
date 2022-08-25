@@ -42,7 +42,7 @@ function GrassField() {
     setSelectedVeg(selectedVeg);
     console.log('You selected veg:' + selectedVeg + " name:" + customData[selectedVeg].vegName);
 
-    textureUrl = getImageUrl(customData[id].imageSrc);
+    textureUrl = getImageUrl(customData[id].textureSrc);
   }
 
   useEffect(() => {
@@ -218,7 +218,7 @@ function GrassField() {
 
         <div className={styles.vegButtonGroups}>
           {customData.map((veg) =>
-            <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
+            <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(veg["vegID"], e)}>
               <img className={styles.vegButtonImg} src={"../assets/" + veg.imageSrc} />
               <h5>{veg["vegName"]}</h5></button>)}
           {/* <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>

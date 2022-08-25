@@ -1,6 +1,6 @@
 [
   {
-    "vegID": "001",
+    "vegID": "0",
     "type": "Flower",
     "vegName": "Armeria Maritama",
     "imageSrc": "menu/flower/common_daisy.png",
@@ -8,7 +8,7 @@
     "soilDepth": 25
   },
   {
-    "vegID": "002",
+    "vegID": "1",
     "type": "Flower",
     "vegName": "Common Daisy",
     "imageSrc": "menu/flower/menu_common_daisy.png",
@@ -16,7 +16,7 @@
     "soilDepth": 25
   },
   {
-    "vegID": "003",
+    "vegID": "2",
     "type": "Flower",
     "vegName": "Fragia Vesca",
     "imageSrc": "menu/flower/menu_fragia_vesca.png",
@@ -24,15 +24,15 @@
     "soilDepth": 5
   },
   {
-    "vegID": "004",
+    "vegID": "3",
     "type": "Flower",
     "vegName": "Anthyllis Velneraria",
     "imageSrc": "menu/flower/menu_anthellis_vulneraria.png",
-    "textureSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "texture/flower/texture_anthellis_vulneraria.png",
     "soilDepth": 60
   },
   {
-    "vegID": "005",
+    "vegID": "4",
     "type": "Flower",
     "vegName": "Poppy",
     "imageSrc": "menu/flower/menu_poppy.png",
@@ -40,7 +40,7 @@
     "soilDepth": 25
   },
   {
-    "vegID": "006",
+    "vegID": "6",
     "type": "Sedum",
     "vegName": "Heartsease",
     "imageSrc": "menu/flower/yellowFlower.png",
@@ -48,7 +48,7 @@
     "soilDepth": 30
   },
   {
-    "vegID": "007",
+    "vegID": "7",
     "type": "Sedum",
     "vegName": "Fragia Vesca",
     "imageSrc": "menu/flower/yellowFlower.png",
@@ -56,7 +56,7 @@
     "soilDepth": 20
   },
   {
-    "vegID": "008",
+    "vegID": "8",
     "type": "Sedum",
     "vegName": "Thymus Polytrichus",
     "imageSrc": "menu/flower/yellowFlower.png",
@@ -64,7 +64,7 @@
     "soilDepth": 15
   },
   {
-    "vegID": "009",
+    "vegID": "9",
     "type": "Sedum",
     "vegName": "Oreganum Vulgare",
     "imageSrc": "menu/flower/yellowFlower.png",
