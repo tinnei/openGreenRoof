@@ -6,6 +6,10 @@ import { Link } from 'react-router-dom';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoidGlubmVpIiwiYSI6ImNsNG1xNGJxMzAwOHQzam1jcTlqd2FtZXUifQ.6OUTbV6SvN668iZOJAoCGQ';
 
+// TODO
+// show selected area 
+// show type of houses
+
 function Map() {
     const mapContainer = useRef(null);
     const [map, setMap] = useState(null);
@@ -22,8 +26,6 @@ function Map() {
         const map = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v11',
-            // style: 'mapbox://styles/tinnei/cl4o7e7o3000614mr8dt725ci',
-            // style: 'mapbox://styles/mapbox/satellite-v9', 
             center: [lng, lat],
             zoom: zoom,
             attribution:
@@ -154,8 +156,8 @@ function Map() {
 
                 // ---- get nearby buildings
                 const bbox = [
-                    [e.point.x - 20, e.point.y - 20],
-                    [e.point.x + 20, e.point.y + 20]
+                    [e.point.x - 50, e.point.y - 50],
+                    [e.point.x + 50, e.point.y + 50]
                 ];
                 const selectedFeatures = map.queryRenderedFeatures(bbox, {
                     layers: ["building"]

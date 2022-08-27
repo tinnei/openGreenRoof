@@ -2,8 +2,8 @@
     position: absolute;
     top: 40px;
     right: 40px;
-    width: auto;
-    height: 80%;
+    width: 300px;
+    height: 70%;
     overflow: auto;
     border-radius: 8px;
     padding: 24px 0;
@@ -17,7 +17,7 @@
 .button {
     display: block;
     right: 40px;
-    width: 400px;
+    width: 300px;
     height: 40px;
     padding: 10px;
     border: none;
@@ -42,16 +42,16 @@
 .vegButtonGroups {
     position: relative;
     width: 100%;
-    height: auto;
+    height: 100%;
     margin-top: 8px;
     display: flex;
     padding: 0 16px;
-    justify-content: space-between;
+    flex-direction: column;
 }
 
 .vegButton {
-    width: 150px;
-    height: auto;
+    width: 100px;
+    height: 100px;
     margin: 8px;
     background: rgb(27, 155, 38);
     border-radius: 4px;

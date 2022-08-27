@@ -56,28 +56,32 @@ function Results() {
             this.keys = [];
 
             // combination of vegetation %
-            // [flower A, 20%, soilA], [flowerB, 30%, soilB]
-            for (let i = 0; i < target.length; i += 1) {
-                this.keys[i] = generateLetter();
+            // [flower A, 20%, soilA], [flowerB, 30%, soilB], [flowerB, 10%, soilB], [flowerB, 15%, soilB], [flowerB, 25%, soilB]
+            // idea: 100 elements <- [] = (flower(rnd), soil(rnd of index from flower))
+            for (let i = 0; i < 100; i += 1) {
+                flower = generateLFlower();
+                this.keys[i] = [flower, generateSoil(flower)];
             }
         }
 
         // a value that will be used to compare
         // we'll add water, energy, carbon, cost here
         fitness() {
-            let match = 0;
-            for (let i = 0; i < this.keys.length; i += 1) {
-                if (this.keys[i] === this.target[i]) {
-                    match += 1;
-                }
-            }
-            return match / this.target.length;
+            // let match = 0;
+            // for (let i = 0; i < this.keys.length; i += 1) {
+            //     if (this.keys[i] === this.target[i]) {
+            //         match += 1;
+            //     }
+            // }
+            // return match / this.target.length;
 
-            // let objWaterSavings = getWaterSavings(soil, veg, area);
-            // let objEnergySavings = getEnergySavings(soil, veg, area);
-            // let objCarbonSequestered = getCarbonTotal(veg, area);
-            // let objCostSavings = getCost(soil, veg, area);
-            // return 1 / objCostSavings + objWaterSavings + objEnergySavings + objCarbonSequestered;
+            // account for the range - multiobjective optimization 
+            let objWaterSavings = getWaterSavings(soil, veg, area);
+            let objEnergySavings = getEnergySavings(soil, veg, area);
+            let objCarbonSequestered = getCarbonTotal(veg, area);
+
+            let objCostSavings = getCost(soil, veg, area);
+            return 1 / objCostSavings + objWaterSavings + objEnergySavings + objCarbonSequestered;
         }
 
         // mixing the genes to breed new one <- ??? how to apply for green roofs?
