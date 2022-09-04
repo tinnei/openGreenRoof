@@ -11,7 +11,7 @@ import customData from '../data/veg.json';
 // import sunVectors from '../data/sunvectors_london.csv';
 
 // TODO - Aug 1 to Aug 15
-// - add context building to scene
+// - [DONE] add context building to scene
 // - add sunlight vectors
 // - raycast sunlight
 // - calculate sum of sunlights per day
@@ -19,11 +19,12 @@ import customData from '../data/veg.json';
 // - [DONE] use map() to show flower buttons
 // - [] organize flower buttons
 // - [DONE] randomize grass
+// - center building
 // https://www.reddit.com/r/threejs/comments/scwjwb/im_trying_to_position_instances_of_instancedmesh/
 
 function GrassField() {
   const location = useLocation();
-  const { buildingGeometry, buildingHeight, nearbyBuildings } = location.state;
+  const { buildingID, buildingGeometry, buildingHeight, nearbyBuildings } = location.state;
 
   const thisScene = new SceneInit('moduleCanvas');
   var objects = []; var raycaster = false;
@@ -72,22 +73,22 @@ function GrassField() {
     raycaster = new THREE.Raycaster();
 
     // ADD ROOF GEOMETRY PLANE
-    const roofShape = new THREE.Shape(buildingGeometry);
-    let roofGeometry = new THREE.ShapeGeometry(roofShape);
-    roofGeometry.rotateX(- Math.PI / 2);
-    let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
-    roofMesh.geometry.center();
-    objects.push(roofMesh); // for grass occlusion
-    group.add(roofMesh);
+    // const roofShape = new THREE.Shape(buildingGeometry);
+    // let roofGeometry = new THREE.ShapeGeometry(roofShape);
+    // roofGeometry.rotateX(- Math.PI / 2);
+    // let roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00, side: THREE.DoubleSide }));
+    // roofMesh.geometry.center();
+    // objects.push(roofMesh); // for grass occlusion
+    // group.add(roofMesh);
 
-    // ADD ROOF VOLUME
-    const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
-    roofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
-    roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
-    roofMesh.geometry.center();
-    roofMesh.translateY(buildingHeight / 2);
-    roofMesh.rotateX(- Math.PI / 2);
-    group.add(roofMesh);
+    // // ADD ROOF VOLUME
+    // const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
+    // roofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
+    // roofMesh = new THREE.Mesh(roofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ff00 }));
+    // roofMesh.geometry.center();
+    // roofMesh.translateY(buildingHeight / 2);
+    // roofMesh.rotateX(- Math.PI / 2);
+    // group.add(roofMesh);
 
     // --------------------------------
     // ----- ADD NEARBY BUILDINGS ----- 
@@ -97,9 +98,12 @@ function GrassField() {
     // TODO: center this after groupping
     // Need to merge two shapes
     let buildingGroup = new THREE.Group();
+    let thisBuildingMesh;
 
-    console.log("nearbyBuildingData---", nearbyBuildings);
+    console.log("injecting all buildings---");
     nearbyBuildings.forEach((building) => {
+      console.log("current building ID:", building["id"]);
+      console.log("looking for ID:", buildingID);
       let buildingHeight = building["height"];
       let buildingCoors = building["coors"];
       console.log(buildingHeight);
@@ -108,19 +112,34 @@ function GrassField() {
       const roofShape = new THREE.Shape(buildingCoors);
       const extrudeSettings = { depth: buildingHeight, bevelEnabled: true, bevelSegments: 0, steps: 1, bevelSize: 1, bevelThickness: 1 };
       let nearbyRoofGeometry = new THREE.ExtrudeGeometry(roofShape, extrudeSettings);
-      let nearbyRoofMesh = new THREE.Mesh(nearbyRoofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ffff }));
-      nearbyRoofMesh.rotateX(- Math.PI / 2);
-      buildingGroup.add(nearbyRoofMesh);
+
+      if (building["id"] == buildingID) {
+        let nearbyRoofMesh = new THREE.Mesh(nearbyRoofGeometry, new THREE.MeshPhongMaterial({ color: 0x0000ff }));
+        nearbyRoofMesh.rotateX(- Math.PI / 2);
+        buildingGroup.add(nearbyRoofMesh);
+        console.log("im current building!");
+        thisBuildingMesh = nearbyRoofMesh;
+        objects.push(nearbyRoofMesh);
+        // const currentBuildingCenter = new THREE.Box3();
+        // currentBuildingCenter.setFromObject(nearbyRoofMesh).getCenter(nearbyRoofMesh.position).multiplyScalar(- 1);
+      } else {
+        let nearbyRoofMesh = new THREE.Mesh(nearbyRoofGeometry, new THREE.MeshPhongMaterial({ color: 0x00ffff }));
+        nearbyRoofMesh.rotateX(- Math.PI / 2);
+        buildingGroup.add(nearbyRoofMesh);
+      }
     });
     buildingGroup.name = "surroundingBuildingsGroup"
     thisScene.scene.add(buildingGroup);
 
     const aabb = new THREE.Box3();
-    let bboxcenter = aabb.setFromObject(buildingGroup).getCenter(buildingGroup.position).multiplyScalar(- 1);
-    console.log("bounding box center of group:", bboxcenter);
-    buildingGroup.translateX(0);
-    buildingGroup.translateY(buildingHeight / 2);
-    buildingGroup.translateZ(0);
+    // move group to center
+    aabb.setFromObject(thisBuildingMesh).getCenter(buildingGroup.position).multiplyScalar(- 1);
+    // console.log("bounding box center of group:", bboxcenter);
+    // buildingGroup.translateX(0);
+    // buildingGroup.translateY(0);
+    // buildingGroup.translateZ(0);
+
+    // console.log("building center now:", buildingCenter);
 
     // ------------------------
     // ----- PUT ON GRASS ----- 
@@ -166,7 +185,6 @@ function GrassField() {
         raycaster.set(pointer, zDirection);
         // thisScene.scene.add(new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 300, 0xff0000));
         var intersects = raycaster.intersectObjects(objects);
-        // console.log("intersect at point", grass_i, ":", intersects);
 
         // STEP 2: Calculate instancedMesh matrix
         const matrix = new THREE.Matrix4();
@@ -176,6 +194,8 @@ function GrassField() {
         const scale = new THREE.Vector3();
 
         if (intersects.length > 0) {
+          console.log("intersect at point", grass_i);
+
           rndX = Math.random(); rndY = Math.random();
           position.x = x * stepSize + rndX;
           position.y = grassSize / 2;

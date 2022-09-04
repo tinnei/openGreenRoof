@@ -20,7 +20,7 @@ function Map() {
     const [selectedBuildingGeometry, setSelectedBuildingGeometry] = useState(null);
     const [selectedBuildingHeight, setSelectedBuildingHeight] = useState(null);
     const [nearbyBuildingData, setNearbyBuildingData] = useState(null);
-    let selectedBuildingID = null;
+    var [selectedBuildingID, setselectedBuildingID] = useState(null);
 
     useEffect(() => {
         const map = new mapboxgl.Map({
@@ -80,8 +80,6 @@ function Map() {
                 }
             }, labelLayerId // add back text on top
             ); // close add layer
-
-
             setMap(map);
         });
 
@@ -162,6 +160,8 @@ function Map() {
                 const selectedFeatures = map.queryRenderedFeatures(bbox, {
                     layers: ["building"]
                 });
+
+                // ---- get nearby building data
                 let nearbyBuildingData = selectedFeatures.map((feat) => {
                     const buildingsFeats = {};
                     buildingsFeats["id"] = feat["id"];
@@ -173,6 +173,9 @@ function Map() {
                 });
                 setNearbyBuildingData(nearbyBuildingData);
                 console.log("[passing state] nearbyBuildingData --", nearbyBuildingData);
+
+                // ---- get selected building ID
+                setselectedBuildingID(selectedBuildingID);
 
                 // ---- get building height
                 let selectedBuildingHeight = features[0]["properties"]["height"];
@@ -197,7 +200,7 @@ function Map() {
                 Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <Link to="/grassfield" state={{ buildingGeometry: selectedBuildingGeometry, buildingHeight: selectedBuildingHeight, nearbyBuildings: nearbyBuildingData }}><button className={styles.button}>Select Building</button></Link>
+            <Link to="/grassfield" state={{ buildingID: selectedBuildingID, buildingGeometry: selectedBuildingGeometry, buildingHeight: selectedBuildingHeight, nearbyBuildings: nearbyBuildingData }}><button className={styles.button}>Select Building</button></Link>
             <pre id="features" className={styles.infoBox} ></pre>
         </div>
     );
