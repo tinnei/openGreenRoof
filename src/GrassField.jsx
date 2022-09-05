@@ -8,7 +8,7 @@ import SceneInit from './lib/SceneInit';
 import styles from './styles/roof.module.css';
 
 import customData from '../data/veg.json';
-// import sunVectors from '../data/sunvectors_london.csv';
+import sunVectors from '../data/sunvectors_london.json';
 
 function GrassField() {
   const location = useLocation();
@@ -34,6 +34,7 @@ function GrassField() {
     textureUrl = getImageUrl(customData[id].textureSrc);
   }
 
+  // function taken from https://stackoverflow.com/questions/38305408/threejs-get-center-of-object
   function getCenterPoint(mesh) {
     var geometry = mesh.geometry;
     geometry.computeBoundingBox();
@@ -45,7 +46,7 @@ function GrassField() {
 
   useEffect(() => {
     // console.log("data here:", customData);
-    // console.log("sun vectors here:", sunVectors);
+    // console.log("sun vectors here:", sunVectors[0]);
     thisScene.initialize();
     thisScene.animate();
 
@@ -244,13 +245,7 @@ function GrassField() {
           {customData.map((veg) =>
             <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(veg["vegID"], e)}>
               <img className={styles.vegButtonImg} src={"../assets/" + veg.imageSrc} />
-              <h5>{veg["vegName"]}</h5></button>)}
-          {/* <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(0, e)}>
-            <img className={styles.vegButtonImg} src="../assets/menu/flower/common_daisy.png" />
-            <h5>Common Daisy</h5></button>
-          <button id="vegBtn" className={styles.vegButton} onClick={(e) => vegSelected(1, e)}>
-            <img className={styles.vegButtonImg} src="../assets/menu/flower/armeria_maritama.png" />
-            <h5>Armeria Maritama</h5></button> */}
+              {veg["vegName"]}</button>)}
         </div>
       </pre >
       <div className={styles.buttonGroup}>

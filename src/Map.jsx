@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import * as turf from '@turf/turf';
 import styles from './styles/map.module.css';
 
 import { Link } from 'react-router-dom';
@@ -212,6 +213,12 @@ function Map() {
                 let selectedBuildingGeometryArray = features[0].geometry["coordinates"][0];
                 let selectedBuildingGeometryPoints = selectedBuildingGeometryArray.map(lnglat => map.project(lnglat));
                 setSelectedBuildingGeometry(selectedBuildingGeometryPoints);
+
+                const area = turf.area(features[0].geometry);
+                // Restrict the area to 2 decimal points.
+                const rounded_area = Math.round(area);
+                console.log("get building area:", rounded_area);
+
                 console.log("passing state] building geometry --", selectedBuildingGeometryPoints);
 
             } else {

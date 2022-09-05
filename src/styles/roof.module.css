@@ -40,24 +40,30 @@
 }
 
 .vegButtonGroups {
-    position: relative;
-    width: 100%;
+    position: absolute;
+    width: 340px;
     height: 100%;
     margin-top: 8px;
-    display: flex;
+    display: block;
     padding: 0 16px;
-    flex-direction: column;
 }
 
 .vegButton {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin: 8px;
     background: rgb(27, 155, 38);
     border-radius: 4px;
     padding: 8px;
-    text-align: left;
     cursor: pointer;
+    float: left;
+    overflow: hidden;
+    display: block;
+    flex-direction: column;
+    font-size: small;
+    text-align: left;
+    white-space: pre-line !important;
+    word-break: break-word;
 }
 
 .vegButton:hover {
