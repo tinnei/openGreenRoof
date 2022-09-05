@@ -96,10 +96,36 @@ function Map() {
         });
     });
 
+    function mapClickFn(coordinates) {
+        console.log("finding address!!!-", coordinates);
+
+        const url =
+            "https://api.mapbox.com/geocoding/v5/mapbox.places/" +
+            coordinates.lng +
+            "," +
+            coordinates.lat +
+            ".json?access_token=" +
+            mapboxgl.accessToken +
+            "&types=address";
+
+        // not returning data here
+        // fetch(url).then(data => {
+        //     console.log("fetch returned data-", data);
+
+        //     if (data.features.length > 0) {
+        //         const address = data.features[0].place_name;
+        //         console.log(address);
+        //     } else {
+        //         console.log("No address found");
+        //     }
+        // });
+    }
+
     // Select building on mouse click
     useEffect(() => {
         if (!map) return;
         map.on("mousedown", (e) => {
+            mapClickFn(e.lngLat);
             // Select properties to display
             const features = map.queryRenderedFeatures(e.point);
             const displayProperties = [
