@@ -6,7 +6,8 @@ It's not great, need refactoring, clean up page route and auth, add ID etc; but 
 
 If you find this interesting, consider contribute! aka help me out ;)
 
-To realize the full potential of this tool, here's the Figma link: https://www.figma.com/file/NGiJ2TPMPQKvUBUvWjPHLi/openGreenRoof-presentation-and-designs-(Copy)?node-id=68%3A43
+To realize the full potential of this tool, here's the Figma link: https://www.figma.com/file/NGiJ2TPMPQKvUBUvWjPHLi/openGreenRoof?node-id=68%3A43 
+
 Too much information? Happy to offload all the information in an interesting way via a quick call.
 
 Sidenote: I know I left a key open; please don't be evil. 
