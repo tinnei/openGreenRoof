@@ -3,8 +3,8 @@
     "vegID": "0",
     "type": "Flower",
     "vegName": "Armeria Maritama",
-    "imageSrc": "menu/flower/common_daisy.png",
-    "textureSrc": "texture/flower/common_daisy.png",
+    "imageSrc": "menu/flower/menu_armeria_maritama.png",
+    "textureSrc": "texture/flower/texture_anthellis_vulneraria.png",
     "soilDepth": 25
   },
   {
@@ -12,7 +12,7 @@
     "type": "Flower",
     "vegName": "Common Daisy",
     "imageSrc": "menu/flower/menu_common_daisy.png",
-    "textureSrc": "menu/flower/yellowFlower.png",
+    "textureSrc": "menu/flower/yelltexture_anthellis_vulnerariaowFlower.png",
     "soilDepth": 25
   },
   {
@@ -20,7 +20,7 @@
     "type": "Flower",
     "vegName": "Fragia Vesca",
     "imageSrc": "menu/flower/menu_fragia_vesca.png",
-    "textureSrc": "menu/flower/menu_poppy.png",
+    "textureSrc": "menu/flower/texture_anthellis_vulneraria.png",
     "soilDepth": 5
   },
   {
@@ -43,23 +43,23 @@
     "vegID": "6",
     "type": "Sedum",
     "vegName": "Heartsease",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_heartsease.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 30
   },
   {
     "vegID": "7",
     "type": "Sedum",
-    "vegName": "Fragia Vesca",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "vegName": "Thymus Polytrichus",
+    "imageSrc": "menu/flower/menu_thymus.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 20
   },
   {
     "vegID": "8",
     "type": "Sedum",
-    "vegName": "Thymus Polytrichus",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "vegName": "Lotus Corniculatus",
+    "imageSrc": "menu/flower/menu_lotus.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 15
   },
@@ -67,7 +67,7 @@
     "vegID": "9",
     "type": "Sedum",
     "vegName": "Oreganum Vulgare",
-    "imageSrc": "menu/flower/yellowFlower.png",
+    "imageSrc": "menu/flower/menu_origanum.png",
     "textureSrc": "menu/flower/yellowFlower.png",
     "soilDepth": 10
   },

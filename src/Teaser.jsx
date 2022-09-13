@@ -11,7 +11,7 @@ function Teaser() {
 
             <div className={styles.subHeader}>
                 <strong><h4>Let's bring more green roofs to cities, together</h4></strong>
-                <h4>Coming September 2022</h4>
+                <h4><a href="/grassfield" target="_blank">→ Quick preview</a>  <a href="https://github.com/tinnei/openGreenRoof" target="_blank">→ Contribute / help me out </a> </h4>
             </div>
 
             <div className={styles.introBox}>

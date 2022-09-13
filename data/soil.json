@@ -1,16 +1,49 @@
 [
     {
         "soilID": "001",
-        "soilName": "Mineral heavy",
-        "unitWeight": 10,
+        "soilName": "Sky Garden Sedum Substrate",
+        "dryWeight": 930,
+        "wetweight": 1300,
         "textureImageSrc": "soil/mineral_heavy.png",
-        "price": 110
+        "link": "https://www.sky-garden.co.uk/shop/substrate-products/sedum-substrate-in-bulk-bags.php",
+        "materials": "",
+        "price": 86.25
     },
     {
         "soilID": "002",
-        "soilName": "Nitrate heavy",
-        "unitWeight": 10,
+        "soilName": "Garden Topsoil Direct - Extensive Lightweight Green Roof Substrate",
+        "dryWeight": 950,
+        "wetweight": null,
         "textureImageSrc": "soil/nitrate_heavy.png",
-        "price": 110
+        "link": "https://www.gardentopsoildirect.co.uk/shop/specialist-composts/extensive-lightweight-green-roof-substrate",
+        "materials": "",
+        "price": 118.98
+    },
+    {
+        "soilID": "003",
+        "soilName": "Turf Online - Extensive Lightweight Green Roof Substrate",
+        "dryWeight": 950,
+        "wetweight": 1300,
+        "textureImageSrc": "soil/nitrate_heavy.png",
+        "link": " https://www.turfonline.co.uk/product/green-roof-substrate/",
+        "materials": [
+            "mineral",
+            "green compost"
+        ],
+        "price": 155
+    },
+    {
+        "soilID": "004",
+        "soilName": "Boughton - Extensive 2",
+        "dryWeight": 900,
+        "wetweight": 1480,
+        "textureImageSrc": "soil/nitrate_heavy.png",
+        "link": " https://www.boughton.co.uk/products/green-roof-substrates/boughton-ex-2/",
+        "materials": [
+            "nitrogen",
+            "phosphate",
+            "potassium"
+        ],
+        "price": null
     }
 ]

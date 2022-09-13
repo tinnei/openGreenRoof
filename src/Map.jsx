@@ -15,7 +15,9 @@ function Map() {
     const mapContainer = useRef(null);
     const [map, setMap] = useState(null);
     const [lng, setLng] = useState(-0.0885);
+    // const [lng, setLng] = useState(-0.0885);
     const [lat, setLat] = useState(51.5267);
+    // const [lat, setLat] = useState(51.5267);
     const [zoom, setZoom] = useState(16);
     const [labelLayerId, setLabelLayerId] = useState(null);
     const [selectedBuildingGeometry, setSelectedBuildingGeometry] = useState(null);
