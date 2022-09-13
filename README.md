@@ -6,6 +6,8 @@ It's not great, need refactoring, clean up page route and auth, add ID etc; but 
 
 if you find this interesting, consider contribute! aka help me out ;)
 
+also, I know I left a key open; please don't be evil. 
+
 # What should it be 
 This is a web app that takes modern approach to green roof installation.
 The aim is to make green roof easy to frabricate and propagrate.
