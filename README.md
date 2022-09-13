@@ -4,9 +4,12 @@ Green roof discovery, digital fabrication and installation all in one
 # Author's note
 It's not great, need refactoring, clean up page route and auth, add ID etc; but hey, the beauty is in the attempt.
 
-if you find this interesting, consider contribute! aka help me out ;)
+If you find this interesting, consider contribute! aka help me out ;)
 
-also, I know I left a key open; please don't be evil. 
+To realize the full potential of this tool, here's the Figma link: https://www.figma.com/file/NGiJ2TPMPQKvUBUvWjPHLi/openGreenRoof-presentation-and-designs-(Copy)?node-id=68%3A43
+Too much information? Happy to offload all the information in an interesting way via a quick call.
+
+Sidenote: I know I left a key open; please don't be evil. 
 
 # What should it be 
 This is a web app that takes modern approach to green roof installation.
